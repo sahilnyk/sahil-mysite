@@ -16,7 +16,7 @@
         }
     ],
     "env": {
-        "SECRET_KEY": "your-secret-key",
+        "SECRET_KEY": "django-insecure-3xmxy*#rkl*6$dfzw=^6znm0d2qqd5tlgd0(yhbkb6vg2926$2",
         "MONGO_DB_NAME": "AdminData",
         "MONGO_DB_URI": "mongodb+srv://rootuser:dbroot123@cluster0.z81hcjn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
         "DEBUG": "False",
