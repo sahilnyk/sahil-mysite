@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "backend_api/wsgi.py",
+            "src": "backend_api/psite/wsgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb"
@@ -12,7 +12,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "backend_api/wsgi.py"
+            "dest": "backend_api/psite/wsgi.py"
         }
     ]
 }
