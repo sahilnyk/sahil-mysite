@@ -1,0 +1,14 @@
+{
+    "projects": [
+        {
+            "name": "backend",
+            "root": "./backend_api",
+            "framework": "django"
+        },
+        {
+            "name": "frontend",
+            "root": "./frontend_client",
+            "framework": "vite"
+        }
+    ]
+}
