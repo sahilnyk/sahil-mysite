@@ -103,7 +103,7 @@ export default {
     methods: {
         async fetchBlog() {
             try {
-                const response = await fetch(`http://localhost:8000/api/blogs/${this.id}/`);
+                const response = await fetch(`https://c296-2405-201-a014-5821-109a-299a-bc38-54b6.ngrok-free.app/api/blogs/${this.id}/`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

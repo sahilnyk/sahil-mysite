@@ -63,7 +63,7 @@ export default {
     async created() {
         const id = this.$route.params.id;
         try {
-            const response = await fetch(`http://localhost:8000/api/blogs/${id}/`);
+            const response = await fetch(`https://c296-2405-201-a014-5821-109a-299a-bc38-54b6.ngrok-free.app/api/blogs/${id}/`);
             if (response.ok) {
                 this.blog = await response.json();
             } else {

@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         async fetchProjects() {
-            const response = await fetch('http://localhost:8000/api/projects/');
+            const response = await fetch('https://c296-2405-201-a014-5821-109a-299a-bc38-54b6.ngrok-free.app/api/projects/');
             const data = await response.json();
             this.projects = data;
         }
