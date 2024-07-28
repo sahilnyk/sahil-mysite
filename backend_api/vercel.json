@@ -2,19 +2,21 @@
     "version": 2,
     "builds": [
         {
-            "src": "Dockerfile",
-            "use": "@vercel/docker"
+            "src": "manage.py",
+            "use": "@vercel/python",
+            "config": {
+                "maxLambdaSize": "50mb"
+            }
+        },
+        {
+            "src": "psite/wsgi.py",
+            "use": "@vercel/python"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "psite/wsgi.py"
         }
-    ],
-    "env": {
-        "MONGO_DB_NAME": "AdminData",
-        "MONGO_DB_URI": "mongodb+srv://rootuser:dbroot123@cluster0.z81hcjn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-        "SECRET_KEY": "django-insecure-3xmxy*#rkl*6$dfzw=^6znm0d2qqd5tlgd0(yhbkb6vg2926$2"
-    }
+    ]
 }
