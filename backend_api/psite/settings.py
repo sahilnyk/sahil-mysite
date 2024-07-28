@@ -58,6 +58,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://localhost:3000',
     'https://sahilnayak.vercel.app',
+    'https://c296-2405-201-a014-5821-109a-299a-bc38-54b6.ngrok-free.app'
 ]
 
 ROOT_URLCONF = 'psite.urls'
