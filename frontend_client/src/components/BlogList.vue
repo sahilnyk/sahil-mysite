@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     async fetchBlogs() {
-      const response = await fetch('https://c296-2405-201-a014-5821-109a-299a-bc38-54b6.ngrok-free.app/api/blogs/');
+      const response = await fetch('https://bofmysite.onrender.com/api/blogs/');
       const data = await response.json();
       this.blogs = data;
     }
