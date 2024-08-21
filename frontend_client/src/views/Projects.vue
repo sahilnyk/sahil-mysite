@@ -100,11 +100,16 @@ a:hover {
 
 <template>
     <div>
-        <h1>Projects</h1>
+        <h1 style="font-size: 1.2rem; font-family: 'Source Code Pro', monospace;">
+            Discover My Latest Projects:
+            <span style="color: green;">
+                Here are the List
+            </span>
+        </h1>
         <table>
             <thead>
                 <tr>
-                    <th>Title</th>
+                    <th>Project Name</th>
                     <th>Created At</th>
                 </tr>
             </thead>
@@ -150,6 +155,10 @@ export default {
 </script>
   
 <style scoped>
+h1 {
+    padding-top: 15px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -157,7 +166,7 @@ table {
 
 th,
 td {
-    padding: 0.5rem;
+    padding: 0.6rem;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }

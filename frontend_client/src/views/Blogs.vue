@@ -31,11 +31,17 @@ h1 {
 
 <template>
     <div>
-        <h1>Blogs</h1>
+        <h1 style="font-size: 1.2rem; font-family: 'Source Code Pro', monospace;">
+            My Blogs:
+            <span style="color: green;">
+                Here are the latest blogs
+            </span>
+        </h1>
+
         <table>
             <thead>
                 <tr>
-                    <th>Title</th>
+                    <th>Latest blogs</th>
                     <th>Created At</th>
                 </tr>
             </thead>
@@ -81,6 +87,10 @@ export default {
 </script>
   
 <style scoped>
+h1 {
+    padding: 20px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
