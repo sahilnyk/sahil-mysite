@@ -1,186 +1,196 @@
 <template>
-  <nav>
-    <ul>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/about">About</router-link></li>
-      <li><router-link to="/blogs">Blogs</router-link></li>
-      <li><router-link to="/projects">Projects</router-link></li>
-      <li class="theme-toggle-item">
-        <button @click="toggleTheme" class="theme-toggle">
-          <i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
-        </button>
-      </li>
-    </ul>
+  <nav class="navbar">
+    <div class="container">
+      <!-- Logo Section with Search -->
+      <div class="logo">
+        <span class="brand-name">Sahilnyk</span>
+      </div>
+
+      <!-- Navbar Links -->
+      <div class="links">
+        <a href="#" class="link">Home</a>
+        <a href="#blogs" class="link">Blogs</a>
+        <a href="#projects" class="link">Projects</a>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/sahilnyk" target="_blank" class="link github-link">
+          <div
+            :class="{'github-icon-dark': isDarkMode, 'github-icon-light': !isDarkMode}"
+          ></div>
+        </a>
+
+        <!-- Theme Toggle -->
+        <div @click="toggleTheme" class="theme-switcher">
+          <span v-if="isDarkMode">🌙</span>
+          <span v-else>☀️</span>
+        </div>
+      </div>
+    </div>
   </nav>
 </template>
 
-
 <script>
 export default {
-  name: 'Navbar',
   data() {
     return {
-      isDarkMode: false
+      isDarkMode: false,
+      showSearchBar: false,
+      searchQuery: "",
     };
-  },
-  computed: {
-    themeIcon() {
-      return this.isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
-    }
   },
   methods: {
     toggleTheme() {
       this.isDarkMode = !this.isDarkMode;
-      document.body.classList.toggle('dark-mode', this.isDarkMode);
-      document.body.classList.toggle('light-mode', !this.isDarkMode);
-    }
+      document.body.setAttribute("data-theme", this.isDarkMode ? "dark" : "light");
+    },
+    toggleSearchBar() {
+      this.showSearchBar = !this.showSearchBar;
+    },
   },
 };
 </script>
 
 <style scoped>
-nav {
-  /* padding: 1em; */
-  text-align: center;
-
-  /* background-color: var(--navbar-background, #333); */
-}
-
-ul {
-  list-style-type: none;
+/* Navbar styling */
+.navbar {
+  width: 100%;
+  padding: 1rem 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  justify-content: center;
-  /* Space between nav items and toggle button */
+  justify-content: space-between;
   align-items: center;
-  /* Center items vertically */
-  margin: 0;
-  padding: 0;
-  flex-wrap: wrap;
-  /* Allow items to wrap if necessary */
+  background-color: var(--color-background);
+  z-index: 1000;
 }
 
-li {
-  margin: 0 1em;
+/* Container for navbar alignment */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-a {
-  color: var(--link-color, white);
+/* Logo Section with Search */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.brand-name {
+  font-family: 'M PLUS Code', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 2px;
+  margin-right: 1rem;
+}
+
+/* GitHub Icons */
+.github-icon-light {
+  width: 26px;
+  height: 26px;
+  background: url('https://cdn-icons-png.flaticon.com/512/25/25231.png') no-repeat center;
+  background-size: contain;
+}
+
+.github-icon-dark {
+  width: 26px;
+  height: 26px;
+  background: url('https://cdn-icons-png.flaticon.com/512/25/25231.png') no-repeat center;
+  background-size: contain;
+  filter: invert(1); /* White for dark mode */
+}
+
+.github-icon-light:hover,
+.github-icon-dark:hover {
+  opacity: 0.8;
+}
+
+/* Navbar Links */
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  margin: 0 1rem;
+  color: var(--color-text);
   text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s ease;
+  font-family: 'M PLUS Code', monospace;
 }
 
-a:hover {
+.link:hover {
   text-decoration: underline;
+  opacity: 0.8;
+  color: aqua;
 }
 
-.theme-toggle-item {
-  margin-left: 2em;
-  /* Add spacing to the left of the toggle button */
-}
-
-.theme-toggle {
-  padding: 0.5em;
-  background: transparent;
-  /* Remove background color */
-  border: none;
-  /* Remove border */
-  color: var(--button-color, white);
+/* Theme Switcher */
+.theme-switcher {
   cursor: pointer;
-  font-size: 1.5em;
-  border-radius: 50%;
-  transition: color 0.3s, transform 0.3s;
-  outline: none;
-  /* Remove outline */
+  margin-left: 1rem;
+  font-size: 1.25rem;
+  color: var(--color-text);
 }
 
-.theme-toggle:hover {
-  color: var(--button-hover-color, #f39c12);
-  /* Change icon color on hover */
-  transform: scale(1.1);
-  /* Slightly increase the size of the button on hover */
+/* CSS Variables for Light and Dark Mode */
+:root {
+  --color-background: #ffffff;
+  --color-text: #000000;
+  --icon-color: invert(0); /* Black for light mode */
 }
 
-.theme-toggle i {
-  margin: 0;
+[data-theme="dark"] {
+  --color-background: #121212;
+  --color-text: #ffffff;
+  --icon-color: invert(1); /* White for dark mode */
 }
 
-/* Light mode */
-body.light-mode {
-  --navbar-background: #f8f9fa;
-  --link-color: #000000;
-  --button-color: #000000;
-  --button-hover-color: #f39c12;
-  /* Orange color for hover */
-}
-
-/* Dark mode */
-body.dark-mode {
-  --navbar-background: #333;
-  --link-color: white;
-  --button-color: white;
-  --button-hover-color: #f39c12;
-  /* Orange color for hover */
-}
-
-/* Media Queries */
-
-/* For tablets and smaller laptops */
-@media (max-width: 1024px) {
-  nav {
-    padding: 0.5em;
-    display: flex;
-    justify-content: center;
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-
-  ul {
-    flex-direction: row;
-    /* Ensure items are displayed horizontally */
-    flex-wrap: nowrap;
-    /* Prevent wrapping */
-    overflow-x: auto;
-    /* Allow horizontal scrolling if necessary */
-  }
-
-  li {
-    margin: 0 0.5em;
-    /* Adjust spacing for smaller screens */
-  }
-
-  .theme-toggle-item {
-    margin-left: 1em;
-    /* Adjust spacing for the toggle button */
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* For phones */
+/* Responsive Design */
 @media (max-width: 768px) {
-  nav {
-    padding: 0.5em;
+  .navbar {
+    padding: 0.5rem 2rem;
+  }
+  .brand-name {
+    font-size: 1.2rem;
+  }
+  .search-icon,
+  .github-icon-light,
+  .github-icon-dark {
+    width: 20px;
+    height: 20px;
+  }
+  .link {
+    font-size: 0.9rem;
+    margin: 0 0.5rem;
+  }
+  .theme-switcher {
+    font-size: 1rem;
   }
 
-  ul {
-    flex-direction: row;
-    /* Ensure items are displayed horizontally */
-    flex-wrap: nowrap;
-    /* Prevent wrapping */
-    overflow-x: auto;
-    /* Allow horizontal scrolling if necessary */
-    justify-content: space-between;
-    /* Space items across the bar */
-  }
-
-  li {
-    margin: 0 0.5em;
-    /* Adjust spacing for smaller screens */
-  }
-
-  .theme-toggle {
-    font-size: 1.2em;
-    padding: 0.4em;
-  }
-
-  .theme-toggle-item {
-    margin-left: 1em;
-    /* Adjust spacing for the toggle button */
+  /* Stack links vertically on mobile */
+  .links {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 </style>

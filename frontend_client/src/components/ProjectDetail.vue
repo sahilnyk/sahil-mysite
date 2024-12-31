@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <h1>{{ project.title }}</h1>
         <p>{{ project.description }}</p>
@@ -33,4 +33,4 @@ h2 {
 p {
     line-height: 1.5;
 }
-</style>
+</style> -->

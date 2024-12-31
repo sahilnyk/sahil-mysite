@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-/* Define CSS variables for dark and light mode */
+
 :root {
   --footer-text-color-light: #333;
   --footer-text-color-dark: #ffffff;
@@ -35,13 +35,13 @@ footer p {
   font-size: 14px;
 }
 
-/* Light mode adjustments */
+
 .light-mode footer {
   color: var(--footer-text-color-light);
   border-top: 1px solid var(--footer-border-color-light);
 }
 
-/* Dark mode adjustments */
+
 .dark-mode footer {
   color: var(--footer-text-color-dark);
   border-top: 1px solid var(--footer-border-color-dark);
@@ -49,12 +49,12 @@ footer p {
 
 footer:hover {
   color: orange;
-  /* Color on hover */
+ 
   border-color: #00f;
-  /* Border color on hover */
+  
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   footer {
     padding: 0.5em 1em;

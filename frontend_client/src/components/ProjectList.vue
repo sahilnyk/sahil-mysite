@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <h1>Projects</h1>
         <table>
@@ -48,4 +48,4 @@ export default {
     padding: 10px 0;
 }
 </style>
-  
+   -->

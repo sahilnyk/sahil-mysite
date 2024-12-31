@@ -7,6 +7,7 @@
   font-weight: normal;
 }
 
+/* Link Styling */
 a,
 .green {
   text-decoration: none;
@@ -21,6 +22,26 @@ a,
   }
 }
 
+/* General layout styles for mobile and desktop */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background);
+  margin: 0;
+  font-family: 'M PLUS Code', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#app {
+  width: 100%;
+  padding: 2rem;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: 1024px) {
   body {
     display: flex;
@@ -31,5 +52,71 @@ a,
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
+    max-width: 1200px;
+    /* Limiting the max width for large screens */
   }
+}
+
+/* Light/Dark Mode Background */
+[data-theme="light"] {
+  --color-background: #F9FAFB;
+  --color-text: #111827;
+}
+
+[data-theme="dark"] {
+  --color-background: #111827;
+  --color-text: #F9FAFB;
+}
+
+/* Ensure that links are clearly visible */
+a {
+  color: var(--color-text);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Additional adjustments for the navbar and page layout */
+.navbar {
+  width: 100%;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-background);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  margin: 0 1rem;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.theme-switcher {
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-/* color palette from <https://github.com/vuejs/theme> */
+ /* color palette from <https://github.com/vuejs/theme> 
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
@@ -21,7 +21,7 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* semantic color variables for this project */
+
 :root {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
@@ -85,5 +85,67 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  
+  --bg-color-light: #F9FAFB;
+  --text-primary-light: #111827;
+  --text-secondary-light: #6B7280;
+  --accent-primary-light: #2563EB;
+  --accent-secondary-light: #FCD34D;
+  --border-color-light: #D1D5DB;
+}
+
+[data-theme="dark"] {
+  
+  --bg-color-dark: #1F2937;
+  --text-primary-dark: #F9FAFB;
+  --text-secondary-dark: #9CA3AF;
+  --accent-primary-dark: #3B82F6;
+  --accent-secondary-dark: #F59E0B;
+  --border-color-dark: #374151;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap'); */
+
+
+ /* src/assets/base.css */
+
+ /* Font Imports */
+ @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+ /* Semantic Colors */
+ :root {
+   --color-background-light: #F9FAFB;
+   --color-background-dark: #111827;
+   --color-text-light: #111827;
+   --color-text-dark: #F9FAFB;
+ }
+
+ [data-theme="light"] {
+   --color-background: var(--color-background-light);
+   --color-text: var(--color-text-light);
+ }
+
+ [data-theme="dark"] {
+   --color-background: var(--color-background-dark);
+   --color-text: var(--color-text-dark);
+ }
+
+ body {
+   margin: 0;
+   font-family: 'M PLUS Code', sans-serif;
+   background-color: var(--color-background);
+   color: var(--color-text);
+   transition: background-color 0.3s, color 0.3s;
+ }
+
+ a {
+   text-decoration: none;
+   color: var(--color-text);
+ }
+
+ a:hover {
+   opacity: 0.7;
+ }

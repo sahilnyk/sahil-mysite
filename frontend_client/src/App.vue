@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Navbar />
-    <ConstructionBanner /> <!-- The banner is part of the layout and does not overlap -->
     <router-view />
     <Footer />
   </div>
@@ -10,13 +9,11 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
-import ConstructionBanner from './components/ConstructionBanner.vue';
 
 export default {
   components: {
     Navbar,
-    Footer,
-    ConstructionBanner
+    Footer
   }
 };
 </script>
@@ -26,13 +23,15 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin-left: 10rem; /* Body margin added here */
+  margin-right: 10rem; /* Body margin added here */
 }
 
 nav {
   text-align: center;
   padding: 1rem;
   color: white;
-  /* z-index: 1000; */
+  font-family: 'M PLUS Code', sans-serif; /* Use custom font here */
   /* Ensure navbar is on top */
 }
 
@@ -52,7 +51,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-
   nav,
   footer {
     padding: 0.5rem;
@@ -62,6 +60,7 @@ footer {
 body {
   margin: 0;
   padding: 0;
+  font-family: 'M PLUS Code', monospace; /* Ensure consistent font */
 }
 
 /* Light mode */
@@ -79,7 +78,6 @@ body.dark-mode {
   --link-color: white;
   --button-color: white;
   --button-hover-color: #f39c12;
-  /* background-color: #333; */
   color: white;
 }
 
