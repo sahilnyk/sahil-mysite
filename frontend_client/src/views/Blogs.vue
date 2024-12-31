@@ -1,34 +1,3 @@
-<!-- <template>
-    <div>
-        <h1>Blogs Page</h1>
-        <BlogList :blogs="blogs" />
-    </div>
-</template>
-  
-<script>
-import BlogList from '../components/BlogList.vue';
-
-export default {
-    components: { BlogList },
-    data() {
-        return {
-            blogs: [
-                { id: 1, title: 'Blog 1' },
-                { id: 2, title: 'Blog 2' }
-            ]
-        };
-    }
-};
-</script>
-
-<style scoped>
-h1 {
-    color: #42b983;
-}
-</style>
-   -->
-
-
 <template>
     <div>
         <h1 style="font-size: 1.2rem; font-family: 'Source Code Pro', monospace;">
