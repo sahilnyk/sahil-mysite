@@ -84,3 +84,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
