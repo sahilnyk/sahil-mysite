@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="blogs">
     <h1>Blogs</h1>
     <div class="blog-item" v-for="blog in blogs" :key="blog.id">
@@ -57,4 +57,4 @@ export default {
   color: #888;
   font-size: 0.9rem;
 }
-</style> -->
+</style>

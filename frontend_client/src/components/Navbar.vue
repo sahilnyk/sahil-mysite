@@ -8,9 +8,9 @@
 
       <!-- Navbar Links -->
       <div class="links">
-        <a href="#" class="link">Home</a>
-        <a href="#blogs" class="link">Blogs</a>
-        <a href="#projects" class="link">Projects</a>
+        <router-link to="/" class="link">Home</router-link>
+        <router-link to="/blogs" class="link">Blogs</router-link>
+        <router-link to="/projects" class="link">Projects</router-link>
 
         <!-- GitHub Link -->
         <a href="https://github.com/sahilnyk" target="_blank" class="link github-link">
