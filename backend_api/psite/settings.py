@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Blogs',
     'Projects',
     'corsheaders',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,13 @@ CORS_ALLOWED_ORIGINS = [
     'https://sahilnyk.vercel.app',
     # '.ngrok-free.app'
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
 
 ROOT_URLCONF = 'psite.urls'
 
