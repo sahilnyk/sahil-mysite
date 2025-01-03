@@ -3,8 +3,7 @@ from djongo import models
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    author = models.CharField(max_length=100)  # Store the author's name
-    category = models.CharField(max_length=100)  # Use predefined choices for better organization
+    author = models.CharField(max_length=100,default='sahilnyk',blank=True)  # Store the author's name (can be 'sahilnyk' by default)
     image = models.ImageField(upload_to='blog_image/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -27,3 +26,9 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_category_display_or_default(self):
+        """
+        Returns the category's display name or a default value if None.
+        """
+        return self.get_category_display() if self.category else "Uncategorized"
