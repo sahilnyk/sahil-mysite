@@ -1,12 +1,24 @@
 <template>
   <div class="blogs">
     <h1>Blogs</h1>
-    <div class="blog-item" v-for="blog in blogs" :key="blog.id">
-      <router-link :to="{ name: 'BlogDetail', params: { id: blog.id } }" class="blog-title">
-        <h2>{{ blog.title }}</h2>
-      </router-link>
-      <p class="created-at">{{ new Date(blog.created_at).toLocaleDateString() }}</p>
-    </div>
+    <table class="blog-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="blog in blogs" :key="blog.id" class="blog-item">
+          <td>
+            <router-link :to="{ name: 'BlogDetail', params: { id: blog.id } }" class="blog-title">
+              {{ blog.title }}
+            </router-link>
+          </td>
+          <td>{{ new Date(blog.created_at).toLocaleDateString() }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -36,21 +48,35 @@ export default {
   padding: 20px;
 }
 
-.blog-item {
-  margin: 20px 0;
+.blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.blog-table th,
+.blog-table td {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
 .blog-title {
   color: #007bff;
   font-size: 1.2rem;
   text-decoration: none;
+  font-family: 'Source Code Pro', monospace;
 }
 
 .blog-title:hover {
   text-decoration: underline;
+  color: aqua;
+}
+
+.blog-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .created-at {

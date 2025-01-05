@@ -93,19 +93,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'psite.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': os.environ.get('MONGO_DB_NAME', 'AdminData'),
-#         'CLIENT': {
-#             'host': os.environ.get('MONGO_DB_URI', 'mongodb+srv://rootuser:dbroot123@cluster0.z81hcjn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
-#         }
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
