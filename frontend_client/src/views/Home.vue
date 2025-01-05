@@ -15,7 +15,7 @@ export default {
         "I started coding in 2021 when I was still in high school.",
         "I’ve learned a lot through hard work and perseverance.",
         "I love to play with hardware, and I'm passionate about computer vision and AI.",
-        "If you want to contact me, feel free to send me an email at: <a href='mailto:sahilnayak2056@gmail.com'>click here</a>.",
+        "If you want to contact me, feel free to send me an email at <a href='mailto:sahilnayak2056@gmail.com'>click here</a>.",
         "If you're into chess, I'm always down to <a href='https://www.chess.com/member/sah669'>play</a>!",
         "I solve math problems and sometimes code in Java, but the journey has just begun!",
         "Thanks for stopping by — feel free to explore my work and join me on this exciting adventure!"
@@ -69,10 +69,10 @@ h1 {
 }
 
 .typography {
-  font-family: "Courier New", monospace;
+  font-family: 'M PLUS Code', monospace;
   font-size: 1rem;
   line-height: 1.5;
-  color: grey;
+  color: rgb(189, 184, 184);
   text-align: left;
   margin: 0 auto;
   width: 60%;
@@ -103,6 +103,7 @@ a {
   }
   h1 {
     font-size: 1.2rem;
+    font-family: 'M PLUS Code', monospace;
   }
 }
 </style>

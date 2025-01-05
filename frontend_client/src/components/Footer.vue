@@ -49,7 +49,7 @@ footer p {
 }
 
 footer:hover {
-  color: rgb(56, 247, 174);
+  color: rgb(103, 255, 197);
  
   border-color: #00f;
   
