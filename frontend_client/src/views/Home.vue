@@ -1,112 +1,108 @@
 <template>
-  <div>
-    <h1>Welcome To my personal site!</h1>
-
-    <p class="typography">
-      I’m a self-taught developer passionate about technology.<br>
-      This is my first step to get freedom in the tech world.<br>
-      This space showcases my projects, blogs, and insights.<br>
-      I’m constantly learning and evolving, excited to share my journey with you.<br>
-      Feel free to browse my work and reach out with any questions or ideas.<br>
-      Thanks for stopping by!
-    </p>
+  <div class="content">
+    <h1>Welcome to My personal site!</h1>
+    <p class="typography" v-html="displayedText"></p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: "Home",
+  data() {
+    return {
+      journeyStages: [
+        "Welcome to my journey as a self-taught developer.",
+        "I started coding in 2021 when I was still in high school.",
+        "I’ve learned a lot through hard work and perseverance.",
+        "I love to play with hardware, and I'm passionate about computer vision and AI.",
+        "If you want to contact me, feel free to send me an email at: <a href='mailto:sahilnayak2056@gmail.com'>click here</a>.",
+        "If you're into chess, I'm always down to <a href='https://www.chess.com/member/sah669'>play</a>!",
+        "I solve math problems and sometimes code in Java, but the journey has just begun!",
+        "Thanks for stopping by — feel free to explore my work and join me on this exciting adventure!"
+      ],
+      displayedText: "",
+      typingSpeed: 150, // Speed at which each letter is typed
+      delayBetweenStages: 800 // Delay before moving to the next sentence
+    };
+  },
+  mounted() {
+    this.typeJourney();
+  },
+  methods: {
+    async typeJourney() {
+      for (const stage of this.journeyStages) {
+        // First, type out the current stage
+        await this.typeText(stage);
+        // After typing one stage, move to the next with a slight pause
+        await this.sleep(this.delayBetweenStages);
+      }
+    },
+
+    async typeText(stage) {
+      for (let i = 0; i < stage.length; i++) {
+        this.displayedText += stage[i];
+        await this.sleep(this.typingSpeed);
+      }
+    },
+
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  }
 };
 </script>
 
 <style scoped>
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 70vh;
+.content {
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 h1 {
-  font-family: 'Courier New', monospace;
-  font-size: medium;
-  color: limegreen;
-  /* Set text color to white */
+  font-family: "Source code pro", monospace;
+  font-size: large;
+  color: rgb(105, 248, 105);
   font-weight: bold;
-  /* Optional: Ensure normal font weight */
-  padding-top: 20px;
   padding-bottom: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Center align text */
+  text-align: center;
 }
 
-/* Typography effect for the paragraph */
 .typography {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 1rem;
-  /* Base font size */
   line-height: 1.5;
-  color: #333;
-  text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+  color: grey;
+  text-align: left;
+  margin: 0 auto;
+  width: 60%;
+  white-space: pre-wrap;
   overflow: hidden;
-  white-space: nowrap;
-  border-right: 0.15em solid orange;
-  animation: typing 6s steps(50, end), blink-caret 0.75s step-end infinite;
+  transition: all 0.5s ease; /* Smooth transition for the effect */
 }
 
-/* Typewriter effect */
-@keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
+a {
+  color: #4c8bf5;
+  text-decoration: none;
 }
 
-/* Blinking cursor effect */
-@keyframes blink-caret {
-
-  from,
-  to {
-    border-color: transparent;
-  }
-
-  50% {
-    border-color: orange;
-  }
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .typography {
     font-size: 0.9rem;
-    /* Smaller font size for tablets and phones */
-    white-space: normal;
-    /* Allow text to wrap on smaller screens */
-    border-right: none;
-    /* Remove cursor effect on smaller screens */
+    width: 80%;
   }
-
   h1 {
     font-size: 1.2rem;
-    /* Adjust font size for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .typography {
     font-size: 0.8rem;
-    /* Even smaller font size for very small screens */
+    width: 90%;
   }
-
   h1 {
-    font-size: 1rem;
-    /* Further adjust font size for very small screens */
+    font-size: 1.2rem;
   }
 }
 </style>

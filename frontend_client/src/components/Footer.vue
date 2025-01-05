@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>© 2024 Sahil Nayak. All rights reserved. | Self-Taught Developer</p>
+    <p>© 2025 Sahil Nayak. All rights reserved. | Self-Taught Developer</p>
   </footer>
 </template>
 
@@ -28,6 +28,7 @@ footer {
   position: relative;
   bottom: 0;
   border-top: 1px solid var(--footer-border-color-light);
+  font-family: 'M PLUS Code', monospace;
 }
 
 footer p {
@@ -48,7 +49,7 @@ footer p {
 }
 
 footer:hover {
-  color: orange;
+  color: rgb(56, 247, 174);
  
   border-color: #00f;
   
@@ -62,6 +63,7 @@ footer:hover {
 
   footer p {
     font-size: 12px;
+    font-family: 'M PLUS Code', monospace;
   }
 }
 </style>
