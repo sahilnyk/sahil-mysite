@@ -1,8 +1,11 @@
-
 from django.contrib import admin
-from .models import Project
+from .models import Project, ProjectImage
 
-@admin.register(Project)
+class ProjectImageInline(admin.TabularInline):  # or StackedInline
+    model = ProjectImage
+    extra = 1
+
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'link', 'image', 'created_at')
-    search_fields = ('title', 'description')
+    inlines = [ProjectImageInline]
+
+admin.site.register(Project, ProjectAdmin)

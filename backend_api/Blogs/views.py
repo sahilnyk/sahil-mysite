@@ -1,27 +1,20 @@
-from rest_framework import viewsets, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
+from rest_framework import generics
+from django.db.models import Q
 from .models import Blog
 from .serializers import BlogSerializer
 
-class BlogViewSet(viewsets.ModelViewSet):
-    queryset = Blog.objects.all()
+class BlogListCreateView(generics.ListCreateAPIView):
     serializer_class = BlogSerializer
 
-    @action(detail=True, methods=['post'])
-    def vote(self, request, pk=None):
-        """
-        Custom action to handle upvotes and downvotes for a blog.
-        """
-        blog = self.get_object()
-        vote_type = request.data.get('vote_type')
+    def get_queryset(self):
+        query = self.request.query_params.get('q', '')
+        return Blog.objects.filter(
+            Q(title__icontains=query) |
+            Q(desc__icontains=query) |
+            Q(category__icontains=query) |
+            Q(author__icontains=query)
+        ) if query else Blog.objects.all()
 
-        if vote_type == 'upvote':
-            blog.upvotes += 1
-        elif vote_type == 'downvote':
-            blog.downvotes += 1
-        else:
-            return Response({"detail": "Invalid vote type"}, status=status.HTTP_400_BAD_REQUEST)
-
-        blog.save()
-        return Response(BlogSerializer(blog).data)
+class BlogRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

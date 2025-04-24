@@ -1,10 +1,7 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import BlogViewSet
-
-router = DefaultRouter()
-router.register(r'blogs', BlogViewSet)
+from django.urls import path
+from .views import BlogListCreateView, BlogRetrieveUpdateDeleteView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', BlogListCreateView.as_view(), name='blog-list-create'),
+    path('<int:pk>/', BlogRetrieveUpdateDeleteView.as_view(), name='blog-retrieve-update-delete'),
 ]

@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models import Blog
+from .models import Blog, BlogImage
 
-@admin.register(Blog)
+class BlogImageInline(admin.TabularInline):  # or StackedInline
+    model = BlogImage
+    extra = 1  # number of extra blank forms
+
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('title', 'content', 'author', 'category', 'created_at')
-    search_fields = ('title', 'content', 'author', 'category')
+    inlines = [BlogImageInline]
+
+admin.site.register(Blog, BlogAdmin)

@@ -1,34 +1,19 @@
-from djongo import models
+from django.db import models
 
 class Blog(models.Model):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    author = models.CharField(max_length=100,default='sahilnyk',blank=True)  # Store the author's name (can be 'sahilnyk' by default)
-    image = models.ImageField(upload_to='blog_image/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    upvotes = models.PositiveIntegerField(default=0)  # Count of upvotes
-    downvotes = models.PositiveIntegerField(default=0)  # Count of downvotes
-
-    CATEGORY_CHOICES = [
-        ('Tech', 'Technology'),
-        ('GeoPolitics', 'GeoPolitics'),
-        ('CoreSubject', 'CoreSubject'),
-        ('Chess', 'Chess'),
-        ('Other', 'Other'),
-    ]
-
-    category = models.CharField(
-        max_length=100,
-        choices=CATEGORY_CHOICES,
-        default='Other',
-    )
+    title = models.CharField(max_length=200)
+    desc = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=100)
+    links = models.TextField()
+    category = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title
 
-    def get_category_display_or_default(self):
-        """
-        Returns the category's display name or a default value if None.
-        """
-        return self.get_category_display() if self.category else "Uncategorized"
+class BlogImage(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='blog_images/')
+
+    def __str__(self):
+        return f"Image for {self.blog.title}"
