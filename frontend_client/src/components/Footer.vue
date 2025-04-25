@@ -1,69 +1,94 @@
 <template>
-  <footer>
-    <p>© 2025 Sahil Nayak. All rights reserved. | Self-Taught Developer</p>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div class="footer-info">
+        &copy; 2025 <span class="name">Sahil Nayak</span>. All rights reserved.
+      </div>
+      <div class="footer-info">
+        Website running for <span id="created-time">loading...</span>
+      </div>
+    </div>
   </footer>
 </template>
 
-<script>
-export default {
-  name: 'Footer'
-};
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const createdDate = new Date('2024-12-28')
+  const now = new Date()
+  const diffTime = now - createdDate
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+  const plural = diffDays === 1 ? 'day' : 'days'
+  document.getElementById('created-time').innerText = `${diffDays} ${plural}`
+})
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Coder&display=swap');
 
-:root {
-  --footer-text-color-light: #333;
-  --footer-text-color-dark: #ffffff;
-  --footer-border-color-light: #ddd;
-  --footer-border-color-dark: #444;
-}
-
-footer {
-  color: var(--footer-text-color-light);
-  text-align: center;
-  padding: 1em 2em;
-  margin-top: auto;
+.footer {
   width: 100%;
-  position: relative;
-  bottom: 0;
-  border-top: 1px solid var(--footer-border-color-light);
-  font-family: 'M PLUS Code', monospace;
+  background-color: var(--nav-bg);
+  color: var(--text);
+  padding: 2rem 0;
+  text-align: center;
+  box-sizing: border-box;
+  border-top: 2px dashed var(--border-color);
+  font-family: 'Coder', monospace;
 }
 
-footer p {
-  margin: 0;
-  font-size: 14px;
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
-
-.light-mode footer {
-  color: var(--footer-text-color-light);
-  border-top: 1px solid var(--footer-border-color-light);
+.footer-links {
+  display: flex;
+  gap: 16px;
+  font-size: 1.9rem;
+  justify-content: center;
 }
 
-
-.dark-mode footer {
-  color: var(--footer-text-color-dark);
-  border-top: 1px solid var(--footer-border-color-dark);
+.footer-links a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-footer:hover {
-  color: rgb(103, 255, 197);
- 
-  border-color: #00f;
-  
+.footer-links a:hover {
+  color: var(--hover-color);
 }
 
+.footer-info {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.name {
+  font-weight: bold;
+}
 
 @media (max-width: 768px) {
-  footer {
-    padding: 0.5em 1em;
+  .footer-content {
+    gap: 1rem;
   }
 
-  footer p {
-    font-size: 12px;
-    font-family: 'M PLUS Code', monospace;
+  .footer-links {
+    font-size: 1.5rem;
+  }
+
+  .footer-info {
+    font-size: 1.2rem;
   }
 }
 </style>

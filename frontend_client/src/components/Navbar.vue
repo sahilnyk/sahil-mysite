@@ -1,196 +1,160 @@
 <template>
   <nav class="navbar">
-    <div class="container">
-      <!-- Logo Section with Search -->
+    <div class="navbar-inner">
       <div class="logo">
-        <span class="brand-name">Sahilnyk</span>
+        <i class="fas fa-terminal"></i> Sahil Nayak
       </div>
 
-      <!-- Navbar Links -->
-      <div class="links">
-        <router-link to="/" class="link">Home</router-link>
-        <router-link to="/blogs" class="link">Blogs</router-link>
-        <router-link to="/projects" class="link">Projects</router-link>
+      <button class="burger" @click="isOpen = !isOpen" aria-label="Toggle Menu">
+        <i class="fas" :class="isOpen ? 'fa-times' : 'fa-bars'"></i>
+      </button>
 
-        <!-- GitHub Link -->
-        <a href="https://github.com/sahilnyk" target="_blank" class="link github-link">
-          <div
-            :class="{'github-icon-dark': isDarkMode, 'github-icon-light': !isDarkMode}"
-          ></div>
-        </a>
-
-        <!-- Theme Toggle -->
-        <div @click="toggleTheme" class="theme-switcher">
-          <span v-if="isDarkMode">🌙</span>
-          <span v-else>☀️</span>
-        </div>
+      <div class="nav-links" :class="{ open: isOpen }">
+        <a href="#"><i class="fas fa-user"></i> About</a>
+        <a href="#"><i class="fas fa-code"></i> Projects</a>
+        <a href="#"><i class="fas fa-blog"></i> Blogs</a>
+        <button class="theme-toggle" @click="toggleTheme" :title="theme === 'dark' ? 'Light mode' : 'Dark mode'">
+          <i :class="theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'"></i>
+        </button>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isDarkMode: false,
-      showSearchBar: false,
-      searchQuery: "",
-    };
-  },
-  methods: {
-    toggleTheme() {
-      this.isDarkMode = !this.isDarkMode;
-      document.body.setAttribute("data-theme", this.isDarkMode ? "dark" : "light");
-    },
-    toggleSearchBar() {
-      this.showSearchBar = !this.showSearchBar;
-    },
-  },
-};
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const theme = ref('light')
+const isOpen = ref(false)
+
+onMounted(() => {
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme) theme.value = savedTheme
+  document.documentElement.setAttribute('data-theme', theme.value)
+})
+
+function toggleTheme() {
+  theme.value = theme.value === 'dark' ? 'light' : 'dark'
+  document.documentElement.setAttribute('data-theme', theme.value)
+  localStorage.setItem('theme', theme.value)
+}
 </script>
 
 <style scoped>
-/* Navbar styling */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Source+Code+Pro:wght@400;500&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
 .navbar {
   width: 100%;
-  padding: 1rem 4rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  background-color: var(--nav-bg);
+  border-bottom: 2px dashed var(--border-color);
+  padding: 0.5rem 1rem;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.navbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-background);
-  z-index: 1000;
+  gap: 10rem; /* Big gap between logo and nav */
 }
 
-/* Container for navbar alignment */
-.container {
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Logo Section with Search */
 .logo {
-  display: flex;
-  align-items: center;
-}
-
-.brand-name {
-  font-family: 'M PLUS Code', monospace;
   font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-text);
-  letter-spacing: 2px;
-  margin-right: 1rem;
-}
-
-/* GitHub Icons */
-.github-icon-light {
-  width: 26px;
-  height: 26px;
-  background: url('https://cdn-icons-png.flaticon.com/512/25/25231.png') no-repeat center;
-  background-size: contain;
-}
-
-.github-icon-dark {
-  width: 26px;
-  height: 26px;
-  background: url('https://cdn-icons-png.flaticon.com/512/25/25231.png') no-repeat center;
-  background-size: contain;
-  filter: invert(1); /* White for dark mode */
-}
-
-.github-icon-light:hover,
-.github-icon-dark:hover {
-  opacity: 0.8;
-}
-
-/* Navbar Links */
-.links {
+  font-weight: 500;
+  color: var(--text);
   display: flex;
   align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
 }
 
-.link {
-  margin: 0 1rem;
-  color: var(--color-text);
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Tighter gap for clean visuals */
+  font-weight: 500;
+}
+
+.nav-links a {
+  color: var(--text);
   text-decoration: none;
-  font-size: 1rem;
-  transition: 0.3s ease;
-  font-family: 'M PLUS Code', monospace;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  position: relative;
+  transition: color 0.2s;
 }
 
-.link:hover {
-  text-decoration: underline;
-  opacity: 0.8;
-  color: aqua;
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--hover-color);
+  transition: width 0.3s;
 }
 
-/* Theme Switcher */
-.theme-switcher {
+.nav-links a:hover {
+  color: var(--hover-color);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text);
   cursor: pointer;
-  margin-left: 1rem;
-  font-size: 1.25rem;
-  color: var(--color-text);
+  font-size: 1.5rem;
+  padding: 0 0.3rem;
+  transition: color 0.3s;
 }
 
-/* CSS Variables for Light and Dark Mode */
-:root {
-  --color-background: #ffffff;
-  --color-text: #000000;
-  --icon-color: invert(0); /* Black for light mode */
+.theme-toggle:hover {
+  color: var(--hover-color);
 }
 
-[data-theme="dark"] {
-  --color-background: #121212;
-  --color-text: #ffffff;
-  --icon-color: invert(1); /* White for dark mode */
+.burger {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.7rem;
+  display: none;
+  cursor: pointer;
 }
 
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0.5rem 2rem;
+  .burger {
+    display: block;
   }
-  .brand-name {
-    font-size: 1.2rem;
-  }
-  .search-icon,
-  .github-icon-light,
-  .github-icon-dark {
-    width: 20px;
-    height: 20px;
-  }
-  .link {
-    font-size: 0.9rem;
-    margin: 0 0.5rem;
-  }
-  .theme-switcher {
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: var(--nav-bg);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1.5rem;
+    border: 1px dashed var(--border-color);
+    gap: 1rem;
+    display: none;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     font-size: 1rem;
   }
 
-  /* Stack links vertically on mobile */
-  .links {
-    flex-direction: column;
-    align-items: flex-start;
+  .nav-links.open {
+    display: flex;
   }
 }
 </style>

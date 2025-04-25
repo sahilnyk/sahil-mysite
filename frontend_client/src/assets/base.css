@@ -1,37 +1,147 @@
- @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
- @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
- /* Semantic Colors */
- :root {
-   --color-background-light: #F9FAFB;
-   --color-background-dark: #111827;
-   --color-text-light: #111827;
-   --color-text-dark: #F9FAFB;
- }
+/* Root Theme Variables */
+:root {
+  --color-bg-light: #fefefe;
+  --color-bg-dark: #050505;
 
- [data-theme="light"] {
-   --color-background: var(--color-background-light);
-   --color-text: var(--color-text-light);
- }
+  --color-navbar-light: #f9f9f9;
+  --color-navbar-dark: #0d0d0d;
 
- [data-theme="dark"] {
-   --color-background: var(--color-background-dark);
-   --color-text: var(--color-text-dark);
- }
+  --color-text-light: #111827;
+  --color-text-dark: #f9fafb;
 
- body {
-   margin: 0;
-   font-family: 'M PLUS Code', sans-serif;
-   background-color: var(--color-background);
-   color: var(--color-text);
-   transition: background-color 0.3s, color 0.3s;
- }
+  --color-border-light: #d4d4d4;
+  --color-border-dark: #333333;
 
- a {
-   text-decoration: none;
-   color: var(--color-text);
- }
+  --color-hover: #FF6347;
+  /* Highlight hover color */
+}
 
- a:hover {
-   opacity: 0.7;
- }
+/* Light Theme */
+[data-theme="light"] {
+  --bg-color: var(--color-bg-light);
+  --text-color: var(--color-text-light);
+  --navbar-color: var(--color-navbar-light);
+  --footer-color: var(--color-navbar-light);
+  --border-color: var(--color-border-light);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-color: var(--color-bg-dark);
+  --text-color: var(--color-text-dark);
+  --navbar-color: var(--color-navbar-dark);
+  --footer-color: var(--color-navbar-dark);
+  --border-color: var(--color-border-dark);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'M PLUS Code', 'Source Code Pro', monospace;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-hover);
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  background-color: var(--navbar-color);
+  border-bottom: 2px dashed var(--border-color);
+  padding: 2rem 0;
+}
+
+.navbar a {
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  background-color: var(--footer-color);
+  color: var(--text-color);
+  text-align: center;
+  border-top: 2px dashed var(--border-color);
+  padding: 2rem 1rem;
+  font-size: 13px;
+}
+
+/* Responsive Typography + Padding */
+@media (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .navbar a {
+    margin: 0 0.5rem;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer {
+    font-size: 12px;
+  }
+}
+
+/* Utility */
+.dashed-border {
+  border: 2px dashed var(--border-color);
+}

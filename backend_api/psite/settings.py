@@ -82,29 +82,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'psite.wsgi.application'
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'AdminData',  
-#         'CLIENT': {
-#             'host': 'mongodb+srv://rootuser:dbroot123@cluster0.z81hcjn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',  # MongoDB URI
-#         }
-#     }
-# }
-
 # Postgre ftw
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'site_db',
-        'USER': 'sahilnayak',
-        'PASSWORD': '2025usahil',  # the one you set during CREATE USER
+        'NAME': 'mysite_db',
+        'USER': 'sahiln',
+        'PASSWORD': '2025sahiln',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
 
 
 # Password validation

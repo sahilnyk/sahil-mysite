@@ -1,95 +1,78 @@
 <template>
   <div id="app">
     <Navbar />
-    <router-view />
+    
+    <main class="main-content">
+      <div class="content-wrapper">
+        <router-view />
+      </div>
+    </main>
+    
     <Footer />
   </div>
 </template>
 
-<script>
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
-
-export default {
-  components: {
-    Navbar,
-    Footer
-  }
-};
+<script setup>
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 </script>
 
 <style>
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin-left: 10rem; /* Body margin added here */
-  margin-right: 10rem; /* Body margin added here */
+:root {
+  --bg: #000000;
+  --text: #f5f5f5;
+  --nav-bg: #111111;
+  --border-color: #333;
+  --hover-color: lightgreen;
 }
 
-nav {
-  text-align: center;
-  padding: 1rem;
-  color: white;
-  font-family: 'M PLUS Code', sans-serif; /* Use custom font here */
-  /* Ensure navbar is on top */
+[data-theme='light'] {
+  --bg: #ffffff;
+  --text: #000000;
+  --nav-bg: #eeeeee;
+  --border-color: #ccc;
+  --hover-color: navy;
 }
 
-main {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  color: white;
-  margin-top: auto;
-}
-
-@media (max-width: 768px) {
-  nav,
-  footer {
-    padding: 0.5rem;
-  }
-}
-
-body {
+html, body {
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'M PLUS Code', monospace; /* Ensure consistent font */
+  background-color: var(--bg); /* full background black */
+  color: var(--text);
+  font-family: 'Source Code Pro', monospace;
+  transition: background 0.3s ease, color 0.3s ease;
+  background-color: #000 !important;
 }
 
-/* Light mode */
-body.light-mode {
-  --navbar-background: #f8f9fa;
-  --link-color: #000000;
-  --button-color: #000000;
-  --button-hover-color: #f39c12;
-  background-color: #f8f9fa;
-  color: #000000;
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
 }
 
-/* Dark mode */
-body.dark-mode {
-  --link-color: white;
-  --button-color: white;
-  --button-hover-color: #f39c12;
-  color: white;
+.main-content {
+  flex: 1;
+  width: 100%;
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
 }
 
-a {
-  color: var(--link-color);
+.content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
-.theme-toggle {
-  color: var(--button-color);
-}
-
-.theme-toggle:hover {
-  color: var(--button-hover-color);
+/* Make sure footer spans full width and matches bg */
+footer {
+  width: 100%;
+  background-color: var(--bg);
+  color: var(--text);
 }
 </style>
