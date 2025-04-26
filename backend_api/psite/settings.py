@@ -88,7 +88,7 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor_custom.css'
-
+# Migration
 # Database - Use DATABASE_URL environment variable for Render's PostgreSQL
 DATABASES = {
     'default': dj_database_url.config(
