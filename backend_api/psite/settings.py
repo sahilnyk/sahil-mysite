@@ -89,11 +89,10 @@ CKEDITOR_5_CONFIGS = {
 }
 CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor_custom.css'
 
-# Database
+# Database - Use DATABASE_URL environment variable for Render's PostgreSQL
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://sahiln:2025sahiln@localhost:5432/mysite_db',  # local database fallback
-        conn_max_age=600,  # keeps connection alive
+        default=os.environ.get('DATABASE_URL', 'postgres://localhost:5432/mysite_db')
     )
 }
 
