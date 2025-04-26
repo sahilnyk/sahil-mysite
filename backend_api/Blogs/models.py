@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Blog(models.Model):
     title = models.CharField(max_length=200)
-    desc = models.TextField()
+    desc = CKEditor5Field('Content', config_name='default')
     date = models.DateTimeField(auto_now_add=True)
     author = models.CharField(max_length=100)
     links = models.TextField()

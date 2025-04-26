@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3xmxy*#rkl*6$dfzw=^6znm0d2qqd5tlgd0(yhbkb6vg2926$2'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['localhost','127.0.0.1','.vercel.app','.onrender.com','.ngrok-free.app']
 
 # Application definition
@@ -25,13 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'About',
     'Blogs',
     'Projects',
     'corsheaders',
-    # 'haystack',
+    'django_ckeditor_5',
 ]
-#This is again a test 
+ 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +81,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'psite.wsgi.application'
 
-# Postgre ftw
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": [
+            "heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", 
+            "|", "outdent", "indent", "|", "blockQuote", "insertTable", "undo", "redo"
+        ],
+        "heading": {
+            "options": [
+                {"model": "paragraph", "title": "Paragraph", "class": "ck-heading_paragraph"},
+                {"model": "heading1", "view": "h1", "title": "Heading 1", "class": "ck-heading_heading1"},
+                {"model": "heading2", "view": "h2", "title": "Heading 2", "class": "ck-heading_heading2"},
+            ]
+        },
+    }
+}
+
+CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor_custom.css'
 
 DATABASES = {
     'default': {
