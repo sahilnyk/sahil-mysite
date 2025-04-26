@@ -10,9 +10,15 @@
       </button>
 
       <div class="nav-links" :class="{ open: isOpen }">
-        <a href="#"><i class="fas fa-user"></i> About</a>
-        <a href="#"><i class="fas fa-code"></i> Projects</a>
-        <a href="#"><i class="fas fa-blog"></i> Blogs</a>
+        <router-link to="/" class="nav-link">
+          <i class="fas fa-user"></i> About
+        </router-link>
+        <router-link to="/projects" class="nav-link">
+          <i class="fas fa-code"></i> Projects
+        </router-link>
+        <router-link to="/blogs" class="nav-link">
+          <i class="fas fa-blog"></i> Blogs
+        </router-link>
         <button class="theme-toggle" @click="toggleTheme" :title="theme === 'dark' ? 'Light mode' : 'Dark mode'">
           <i :class="theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'"></i>
         </button>
@@ -78,7 +84,7 @@ function toggleTheme() {
   font-weight: 500;
 }
 
-.nav-links a {
+.nav-links .nav-link {
   color: var(--text);
   text-decoration: none;
   font-size: 1.5rem;
@@ -89,7 +95,7 @@ function toggleTheme() {
   transition: color 0.2s;
 }
 
-.nav-links a::after {
+.nav-links .nav-link::after {
   content: "";
   position: absolute;
   width: 0%;
@@ -100,11 +106,11 @@ function toggleTheme() {
   transition: width 0.3s;
 }
 
-.nav-links a:hover {
+.nav-links .nav-link:hover {
   color: var(--hover-color);
 }
 
-.nav-links a:hover::after {
+.nav-links .nav-link:hover::after {
   width: 100%;
 }
 

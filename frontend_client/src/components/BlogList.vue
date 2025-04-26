@@ -1,24 +1,23 @@
 <template>
-  <div class="blogs">
-    <h1>Blogs</h1>
-    <table class="blog-table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Created At</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="blog in blogs" :key="blog.id" class="blog-item">
-          <td>
-            <router-link :to="{ name: 'BlogDetail', params: { id: blog.id } }" class="blog-title">
-              {{ blog.title }}
-            </router-link>
-          </td>
-          <td>{{ new Date(blog.created_at).toLocaleDateString() }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="content">
+    <h1>My Blog Posts</h1>
+
+    <div v-if="blogs.length" v-for="blog in blogs" :key="blog.id" class="blog-post">
+      <router-link
+        :to="{ name: 'BlogDetail', params: { id: blog.id } }"
+        class="blog-title"
+      >
+        {{ blog.title }}
+      </router-link>
+      <div class="blog-date">{{ formatDate(blog.date) }}</div>
+      <div class="blog-excerpt">
+        {{ blog.desc ? blog.desc.slice(0, 120) + '...' : 'No content available.' }}
+      </div>
+    </div>
+
+    <div v-else>
+      Loading blogs...
+    </div>
   </div>
 </template>
 
@@ -26,7 +25,7 @@
 export default {
   data() {
     return {
-      blogs: []
+      blogs: [],
     };
   },
   created() {
@@ -34,53 +33,69 @@ export default {
   },
   methods: {
     async fetchBlogs() {
-      const response = await fetch('https://bofmysite.onrender.com/api/blogs/');
-      const data = await response.json();
-      this.blogs = data;
-    }
-  }
+      try {
+        const response = await fetch('https://bofmysite.onrender.com/api/blogs/');
+        const data = await response.json();
+        this.blogs = data;
+      } catch (error) {
+        console.error('Failed to fetch blogs:', error);
+      }
+    },
+    formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
-.blogs {
-  text-align: center;
-  padding: 20px;
-}
-
-.blog-table {
+.content {
+  flex: 1;
+  padding: 40px 20px;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  max-width: 800px;
+  margin: 0 auto;
   font-family: 'Source Code Pro', monospace;
 }
 
-.blog-table th,
-.blog-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
+h1 {
+  font-size: 24px;
+  border-bottom: 1px dashed var(--border-color, #ccc);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.blog-post {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--border-color, #ccc);
 }
 
 .blog-title {
-  color: #007bff;
-  font-size: 1.2rem;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--hover-color, navy);
   text-decoration: none;
-  font-family: 'Source Code Pro', monospace;
 }
 
 .blog-title:hover {
+  color: var(--hover-color, lightblue);
   text-decoration: underline;
-  color: aqua;
 }
 
-.blog-item:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
+.blog-date {
+  font-size: 12px;
+  color: gray;
+  margin-bottom: 10px;
 }
 
-.created-at {
-  color: #888;
-  font-size: 0.9rem;
+.blog-excerpt {
+  font-size: 14px;
+  color: var(--text, #000);
 }
 </style>

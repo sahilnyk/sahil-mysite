@@ -59,7 +59,7 @@
   padding: 40px 20px 100px; /* added bottom padding for footer */
   max-width: 800px;
   margin: 0 auto;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .intro {
@@ -82,22 +82,23 @@
 }
 
 .tagline {
-  font-size: 17px;
+  font-size: 18px;
   margin-bottom: 20px;
+  
 }
 
 .skills {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 44px;
 }
 
 .box {
   padding: 8px;
   border: 2px dashed var(--text-color);
   flex: 1 0 auto;
-  font-size: 13px;
+  font-size: 15px;
   text-align: center;
   transition: all 0.3s ease;
   border-radius: 0;
@@ -157,7 +158,7 @@
 
 .post-item {
   margin-bottom: 12px;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .post-date {
