@@ -7,6 +7,7 @@ class ProjectListCreateView(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
+        # Search functionality
         query = self.request.query_params.get('q', '')
         return Project.objects.filter(
             Q(title__icontains=query) |
@@ -18,3 +19,4 @@ class ProjectListCreateView(generics.ListCreateAPIView):
 class ProjectRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    lookup_field = 'slug'  # Use slug for retrieving the Project

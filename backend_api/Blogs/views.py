@@ -7,6 +7,7 @@ class BlogListCreateView(generics.ListCreateAPIView):
     serializer_class = BlogSerializer
 
     def get_queryset(self):
+        # Search functionality
         query = self.request.query_params.get('q', '')
         return Blog.objects.filter(
             Q(title__icontains=query) |
@@ -18,3 +19,4 @@ class BlogListCreateView(generics.ListCreateAPIView):
 class BlogRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    lookup_field = 'slug'  # Use slug for retrieving the Blog

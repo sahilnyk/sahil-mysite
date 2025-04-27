@@ -1,61 +1,26 @@
 <template>
-    <div v-if="project">
-        <h1>{{ project.title }}</h1>
-        <p>Created At: {{ formattedDate }}</p>
-        <p>{{ project.description }}</p>
-        <a :href="project.link" target="_blank">More Info</a>
-        <div v-if="project.image">
-            <img :src="project.image" alt="Project Image" />
-        </div>
+    <div>
+      <!-- ProjectDetail component now expects a slug as a prop -->
+      <ProjectDetail :slug="slug" />
     </div>
-    <div v-else>
-        <p>Loading...</p>
-    </div>
-</template>
+  </template>
   
-<script>
-export default {
-    props: {
-        id: {
-            type: Number,
-            required: true
-        }
+  <script>
+  import ProjectDetail from '@/components/ProjectDetail.vue';
+  
+  export default {
+    components: {
+      ProjectDetail,
     },
     data() {
-        return {
-            project: null
-        };
+      return {
+        slug: this.$route.params.slug, // Slug from route params
+      };
     },
-    computed: {
-        formattedDate() {
-            if (this.project && this.project.created_at) {
-                return new Date(this.project.created_at).toLocaleDateString();
-            }
-            return 'Date not available';
-        }
-    },
-    created() {
-        this.fetchProject();
-    },
-    methods: {
-        async fetchProject() {
-            try {
-                const response = await fetch(`https://bofmysite.onrender.com/api/projects/${this.id}/`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                this.project = data;
-            } catch (error) {
-                console.error('There has been a problem with your fetch operation:', error);
-            }
-        }
-    }
-};
-</script>
+  };
+  </script>
   
-<style scoped>
-/* Add styles as needed */
-</style>
-  
+  <style scoped>
+  /* You can add specific styles for this view if necessary */
+  </style>
   

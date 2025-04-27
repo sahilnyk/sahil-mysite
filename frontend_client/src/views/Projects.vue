@@ -1,114 +1,105 @@
 <template>
-    <div class="projects">
-      <!-- Project Info Section -->
-      <div class="project-info">
-        <h1 class="info-title">Why I Build Projects 🚀</h1>
-        <p class="info-text">
-          These are some of my projects – a mix of fun experiments and solutions to real-world problems.  
-          Each project reflects my learning journey, tackling challenges, and turning ideas into reality.
+  <div class="projects">
+    <!-- Project Info Section -->
+    <div class="project-info">
+      <h1 class="info-title">&gt; Why I build projects?</h1> <!-- Changed title color -->
+      <div class="info-text">
+        <p>
+          I build projects to explore new technologies, experiment with different concepts, and solve real-world problems.
+          Each project reflects my journey and my passion for learning.
+        </p>
+        <p>
+          ➔ I am using Render free hosting, so it might take a few seconds to start the server 🚀.
+        </p>
+        <p>
+          ➔ You can also find more about my projects on
+          <a href="https://github.com/sahilnyk" target="_blank" class="github-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>.
         </p>
       </div>
-  
-      <!-- Project List Section -->
-      <table class="project-table">
-        <tbody>
-          <tr v-for="project in projects" :key="project.id" class="project-item">
-            <td>
-              <router-link :to="{ name: 'ProjectDetail', params: { id: project.id } }" class="project-link">
-                {{ project.title }}
-              </router-link>
-            </td>
-            <td>{{ new Date(project.created_at).toLocaleDateString() }}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        projects: []
-      };
-    },
-    created() {
-      this.fetchProjects();
-    },
-    methods: {
-      async fetchProjects() {
-        try {
-          const response = await fetch('https://bofmysite.onrender.com/api/projects/');
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
-          this.projects = data;
-        } catch (error) {
-          console.error('There has been a problem with your fetch operation:', error);
-        }
-      }
-    }
-  };
-  </script>
-  
-  <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;700&display=swap');
-  
-  /* Root Styling */
-  .projects {
-    text-align: center;
-    padding: 80px 20px 20px;
-  }
-  
-  /* Project Info Section */
+
+    <!-- Project List Section -->
+    <div class="project-list-container">
+      <ProjectList />
+    </div>
+  </div>
+</template>
+
+<script>
+import ProjectList from '@/components/ProjectList.vue';
+
+export default {
+  components: {
+    ProjectList,
+  },
+};
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;700&display=swap');
+
+.projects {
+  text-align: center;
+  padding: 80px 20px 20px;
+  color: var(--text-color);
+  font-family: 'Source Code Pro', monospace;
+}
+
+.project-info {
+  max-width: 700px;
+  margin: 0 auto 50px auto;
+  text-align: left;
+  padding-bottom: 20px;
+  /* border-bottom: 2px dashed var(--border-color, #ccc); */
+}
+
+.info-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ff6f61; /* Updated color for the title */
+}
+
+.info-text p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #b4b8ba;
+  margin-bottom: 15px;
+}
+
+.github-link {
+  color: #2962ff;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+}
+
+.github-link i {
+  margin-right: 5px;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+}
+
+.project-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+:root {
+  --text-color: #d4d4d4;
+}
+
+@media (max-width: 768px) {
   .project-info {
-    max-width: 600px; /* Align with project list width */
-    margin: 0 auto 30px auto;
-    text-align: left;
+    text-align: center;
   }
-  
-  .info-title {
-    font-size: 1.2rem;
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #63f861; /* Soft green */
+  .info-text p {
+    font-size: 0.95rem;
   }
-  
-  .info-text {
-    font-size: 1rem;
-    font-family: 'Source Code Pro', monospace;
-    line-height: 1.6;
-    color: #b4b8ba; /* Neutral gray */
-  }
-  
-  /* Project List Section */
-  .project-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: 'Source Code Pro', monospace;
-  }
-  
-  .project-table th,
-  .project-table td {
-    padding: 0.6rem;
-    text-align: left;
-  }
-  
-  .project-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .project-link:hover {
-    text-decoration: underline;
-    color: aqua;
-  }
-  
-  .project-item:hover {
-    cursor: pointer;
-  }
-  </style>
-  
+}
+</style>

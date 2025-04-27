@@ -8,9 +8,9 @@ import ProjectDetail from '../views/ProjectDetail.vue';
 const routes = [
   { path: '/', component: Home },
   { path: '/blogs', component: Blogs },
-  { path: '/blogs/:id', component: BlogDetail, name: 'BlogDetail', props: true },
+  { path: '/blogs/:slug', component: BlogDetail, name: 'BlogDetail', props: true }, // Use 'slug' instead of 'id'
   { path: '/projects', component: Projects },
-  { path: '/projects/:id', component: ProjectDetail, name: 'ProjectDetail', props: true }
+  { path: '/projects/:slug', component: ProjectDetail, name: 'ProjectDetail', props: true } // Use 'slug' instead of 'id'
 ];
 
 const router = createRouter({
