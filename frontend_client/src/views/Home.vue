@@ -52,14 +52,17 @@
           :key="item.year"
           class="timeline-item"
           :class="{ active: activeTimeline === idx }"
-          @mouseenter="activeTimeline = idx"
-          @mouseleave="activeTimeline = null"
-          @click="activeTimeline = idx"
+          @click="handleTimelineClick(idx)"
+          tabindex="0"
+          @keydown.enter="handleTimelineClick(idx)"
         >
           <div class="timeline-dot"></div>
           <div class="timeline-content">{{ item.label }}</div>
-          <transition name="fade">
-            <div v-if="activeTimeline === idx" class="timeline-desc">
+          <transition name="timeline-fade-slide">
+            <div
+              v-if="activeTimeline === idx"
+              class="timeline-desc minimal-desc"
+            >
               {{ item.desc }}
             </div>
           </transition>
@@ -103,38 +106,38 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const timeline = [
   {
     year: 2020,
     label: '2020 - Get into Tech',
-    desc: 'In covid started exploring the tech world.',
+    desc: 'During the COVID lockdown, I started exploring the tech world.',
   },
   {
     year: 2021,
     label: '2021 - Learned Django',
-    desc: 'In 2021 learned Python and by the end of 2021 started building websites using Django.',
+    desc: 'Learned Python and began building websites using Django.',
   },
   {
     year: 2022,
     label: '2022 - Explore more in web app',
-    desc: 'Learnt different development tools and frameworks which are latest.',
+    desc: 'Discovered new development tools and frameworks.',
   },
   {
     year: 2023,
     label: '2023 - Get into Uni',
-    desc: 'Participated in coding events and hackathons, learnt about core subjects.',
+    desc: 'Joined university, participated in coding events and hackathons.',
   },
   {
     year: 2024,
     label: '2024 - Explore AI and ML',
-    desc: 'Learnt about classic ML algorithms, EDA, and other things used in the ML pipeline.',
+    desc: 'Studied classic ML algorithms, EDA, and ML pipelines.',
   },
   {
     year: 2025,
     label: '2025 - Done two internship',
-    desc: 'In SDE-1 role and AI (computer vision), learnt so many things—many more to go.',
+    desc: 'Worked as SDE-1 and in AI (computer vision); learned a lot, more to go.',
   },
 ]
 
@@ -164,6 +167,11 @@ function meteorStyle(n) {
     animationDelay: `${delay}s`,
     animationDuration: `${duration}s`,
   }
+}
+
+// Timeline click handler for smooth open/close
+function handleTimelineClick(idx) {
+  activeTimeline.value = activeTimeline.value === idx ? null : idx
 }
 </script>
 
@@ -367,14 +375,44 @@ function meteorStyle(n) {
   will-change: opacity, transform;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.45s cubic-bezier(.4,0,.2,1), transform 0.45s cubic-bezier(.4,0,.2,1);
+.timeline-desc.minimal-desc {
+  margin-left: 52px;
+  margin-top: 14px;
+  background: rgba(255,255,255,0.13);
+  color: #e3e3e3;
+  border-radius: 12px;
+  font-size: 15px;
+  padding: 18px 28px 18px 24px;
+  box-shadow: 0 4px 18px 0 rgba(0,0,0,0.10);
+  font-family: 'Cascadia Code', monospace;
+  font-weight: 400;
+  line-height: 2.1;
+  letter-spacing: 0.01em;
+  min-height: 38px;
+  opacity: 1;
+  border: 1.5px solid rgba(255,255,255,0.13);
+  backdrop-filter: blur(2.5px);
+  transition: 
+    background 0.45s cubic-bezier(.4,0,.2,1), 
+    color 0.45s cubic-bezier(.4,0,.2,1),
+    padding 0.45s cubic-bezier(.4,0,.2,1),
+    margin 0.45s cubic-bezier(.4,0,.2,1),
+    box-shadow 0.45s cubic-bezier(.4,0,.2,1);
 }
-.fade-enter-from, .fade-leave-to {
+
+.timeline-fade-slide-enter-active,
+.timeline-fade-slide-leave-active {
+  transition: 
+    opacity 0.55s cubic-bezier(.4,0,.2,1), 
+    transform 0.55s cubic-bezier(.4,0,.2,1);
+}
+.timeline-fade-slide-enter-from,
+.timeline-fade-slide-leave-to {
   opacity: 0;
-  transform: translateY(16px) scale(0.98);
+  transform: translateY(28px) scale(0.97);
 }
-.fade-enter-to, .fade-leave-from {
+.timeline-fade-slide-enter-to,
+.timeline-fade-slide-leave-from {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
