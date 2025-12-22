@@ -46,8 +46,8 @@ export default function BlogPage() {
                 </h1>
 
                 <p className="text-neutral-400 mt-4 text-sm sm:text-base max-w-2xl mx-auto">
-                    Thoughts, lessons, experiments and insights from my journey in
-                    building products, engineering, and exploring technology.
+                    Not Added Blogs (My DB terminated because of free tier) will add soon.
+                    Thanks for your time
                 </p>
 
                 {/* ========= BENTO GRID ========= */}
