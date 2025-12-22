@@ -46,8 +46,8 @@ export default function ProjectsPage() {
                 </h1>
 
                 <p className="text-neutral-400 mt-4 text-sm sm:text-base max-w-2xl mx-auto">
-                    A collection of products and applications I've built over the years.
-                    From small academic projects to full-scale web applications.
+                    Not Added Projects (My DB terminated because of free tier) will add soon.
+                    Thanks for your time
                 </p>
 
                 {/* ========= OFFICIAL BENTO GRID ========= */}
