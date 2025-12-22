@@ -1,0 +1,49 @@
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
+@import "tailwindcss";
+
+/* ---------- Global Theme Colors ---------- */
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+/* ---------- Ripple Animation Theme ---------- */
+@theme inline {
+  --animate-cell-ripple: cell-ripple var(--duration, 200ms) ease-out none 1 var(--delay, 0ms);
+
+  @keyframes cell-ripple {
+    0% {
+      opacity: 0.4;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      opacity: 0.4;
+    }
+  }
+}
+
+/* ---------- Body Defaults ---------- */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+}
+
+/* Handwritten font utility */
+.goichi-hand {
+  font-family: "Gochi Hand", cursive;
+}
+
+/* ---------- FORCE DEFAULT CURSOR ---------- */
+/* In case any previous custom cursor CSS was applied */
+html,
+body,
+* {
+  cursor: auto !important;
+}
