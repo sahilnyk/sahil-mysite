@@ -131,7 +131,7 @@ export function NavbarMenuDemo() {
 
                     {/* LinkedIn - White Icon */}
                     <a
-                        href="https://linkedin.com/in/sahilnyk"
+                        href="https://www.linkedin.com/in/sahil-nayak-464548277/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="
