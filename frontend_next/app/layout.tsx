@@ -5,8 +5,8 @@ import React from "react";
 // import { NavbarMenuDemo } from "@/components/ui/navbar-menu-demo";
 
 export const metadata: Metadata = {
-  title: "Ripple + Navbar",
-  description: "Working setup",
+  title: "Sahil Nayak",
+  description: "Software Product Engineer | Building Scalable Web Applications & SaaS Products",
 };
 
 export default function RootLayout({
