@@ -45,7 +45,7 @@ export default function Home() {
           <p className="text-neutral-300 leading-relaxed text-sm sm:text-base">
             I wrote my{" "}
             <span className="text-white font-semibold border-b border-white/30">
-              first line of code at the age of 16
+              first line of code at the age of 17
             </span>{" "}
             and I have been{" "}
             <span className="text-slate-200 font-semibold">
