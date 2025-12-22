@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@tabler/icons-react": "^3.36.0",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "motion": "^12.23.26",
