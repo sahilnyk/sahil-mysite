@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export const BackgroundRippleEffect = ({
@@ -86,60 +86,86 @@ const DivGrid = ({
         [rows, cols]
     );
 
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [containerWidth, setContainerWidth] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const ro = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                const w = entry.contentRect.width;
+                setContainerWidth(w);
+            }
+        });
+        ro.observe(containerRef.current);
+        // initial
+        setContainerWidth(containerRef.current.getBoundingClientRect().width || null);
+        return () => ro.disconnect();
+    }, [containerRef]);
+
+    const effectiveCellSize = containerWidth
+        ? Math.max(8, Math.floor(Math.min(cellSize, containerWidth / cols)))
+        : cellSize;
+
     const gridStyle: React.CSSProperties = {
         display: "grid",
-        gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,
-        gridTemplateRows: `repeat(${rows}, ${cellSize}px)`,
-        width: cols * cellSize,
-        height: rows * cellSize,
+        gridTemplateColumns: `repeat(${cols}, ${effectiveCellSize}px)`,
+        gridTemplateRows: `repeat(${rows}, ${effectiveCellSize}px)`,
+        width: cols * effectiveCellSize,
+        height: rows * effectiveCellSize,
+        maxWidth: "100%",
+        boxSizing: "border-box",
         marginInline: "auto",
     };
 
     return (
         <div
+            ref={containerRef}
             className={cn(
-                "relative z-[3] pointer-events-auto",
+                "relative z-[3] pointer-events-auto overflow-hidden",
                 className
             )}
-            style={gridStyle}
+            style={{ width: "100%" }}
         >
-            {cells.map((idx) => {
-                const rowIdx = Math.floor(idx / cols);
-                const colIdx = idx % cols;
+            <div style={gridStyle}>
+                {cells.map((idx) => {
+                    const rowIdx = Math.floor(idx / cols);
+                    const colIdx = idx % cols;
 
-                const distance = clickedCell
-                    ? Math.hypot(clickedCell.row - rowIdx, clickedCell.col - colIdx)
-                    : 0;
+                    const distance = clickedCell
+                        ? Math.hypot(clickedCell.row - rowIdx, clickedCell.col - colIdx)
+                        : 0;
 
-                const delay = clickedCell ? Math.max(0, distance * 55) : 0;
-                const duration = 200 + distance * 80;
+                    const delay = clickedCell ? Math.max(0, distance * 55) : 0;
+                    const duration = 200 + distance * 80;
 
-                const style: CellStyle = clickedCell
-                    ? {
-                        "--delay": `${delay}ms`,
-                        "--duration": `${duration}ms`,
-                    }
-                    : {};
-
-                return (
-                    <div
-                        key={idx}
-                        className={cn(
-                            "cell relative border-[0.5px] opacity-40 transition-opacity duration-150 will-change-transform hover:opacity-80 dark:shadow-[0px_0px_40px_1px_var(--cell-shadow-color)_inset]",
-                            clickedCell && "animate-cell-ripple [animation-fill-mode:none]",
-                            !interactive && "pointer-events-none"
-                        )}
-                        style={{
-                            backgroundColor: fillColor,
-                            borderColor: borderColor,
-                            ...style,
-                        }}
-                        onClick={
-                            interactive ? () => onCellClick?.(rowIdx, colIdx) : undefined
+                    const style: CellStyle = clickedCell
+                        ? {
+                            "--delay": `${delay}ms`,
+                            "--duration": `${duration}ms`,
                         }
-                    />
-                );
-            })}
+                        : {};
+
+                    return (
+                        <div
+                            key={idx}
+                            className={cn(
+                                "cell relative border-[0.5px] opacity-40 transition-opacity duration-150 will-change-transform hover:opacity-80 dark:shadow-[0px_0px_40px_1px_var(--cell-shadow-color)_inset]",
+                                clickedCell && "animate-cell-ripple [animation-fill-mode:none]",
+                                !interactive && "pointer-events-none"
+                            )}
+                            style={{
+                                backgroundColor: fillColor,
+                                borderColor: borderColor,
+                                ...style,
+                            }}
+                            onClick={
+                                interactive ? () => onCellClick?.(rowIdx, colIdx) : undefined
+                            }
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 };

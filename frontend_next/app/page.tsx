@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "motion/react";
+import CircularText from "@/components/ui/circular-text";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { NavbarMenuDemo } from "@/components/ui/navbar-menu-demo";
@@ -8,6 +10,7 @@ import { Timeline } from "@/components/ui/timeline";
 import { TechStackMarquee } from "@/components/ui/tech-stack-marquee";
 
 export default function Home() {
+  const profileRef = useRef<HTMLImageElement | null>(null);
   return (
     <main className="relative min-h-screen w-full px-4 sm:px-6 pt-0 pb-10">
 
@@ -27,7 +30,7 @@ export default function Home() {
         {/* LEFT */}
         <div className="space-y-6 font-sans text-left">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight bg-linear-to-b from-white via-neutral-300 to-neutral-500 bg-clip-text text-transparent">
-            Software Product Engineer
+            Software Engineer
           </h1>
 
           <div className="flex flex-col gap-2 text-neutral-400 text-lg sm:text-xl items-start">
@@ -90,6 +93,7 @@ export default function Home() {
           </motion.div>
 
           <motion.img
+            ref={profileRef}
             src="https://avatars.githubusercontent.com/u/139529375?v=4"
             alt="Sahil"
             className="rounded-full object-cover w-36 h-36 sm:w-52 sm:h-52 md:w-96 md:h-96 border border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.12)]"
@@ -97,41 +101,11 @@ export default function Home() {
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          <div className="absolute right-4 sm:right-8 md:right-12 -top-2 sm:top-2 md:top-8 rotate-[4deg]">
-            <p className="text-white/90 text-lg sm:text-2xl md:text-3xl" style={{ fontFamily: "'Gochi Hand', cursive" }}>
-              Sahil Nayak
-            </p>
-          </div>
-
-          <div className="absolute left-4 sm:left-8 md:left-12 top-4 sm:top-8 md:top-12 -rotate-[3deg]">
-            <p className="text-white/80 text-sm sm:text-xl md:text-2xl" style={{ fontFamily: "'Gochi Hand', cursive" }}>
-              Trekking
-            </p>
-          </div>
-
-          <div className="absolute right-[35%] sm:right-[38%] md:right-[40%] -top-6 sm:-top-4 md:-top-6 rotate-[2deg]">
-            <p className="text-white/80 text-sm sm:text-xl md:text-2xl" style={{ fontFamily: "'Gochi Hand', cursive" }}>
-              Chess
-            </p>
-          </div>
-
-          <div className="absolute right-4 sm:right-8 md:right-12 bottom-4 sm:bottom-8 md:bottom-12 rotate-[6deg]">
-            <p className="text-white/80 text-sm sm:text-xl md:text-2xl" style={{ fontFamily: "'Gochi Hand', cursive" }}>
-              Travelling
-            </p>
-          </div>
-
-          <div className="absolute -left-2 sm:-left-4 md:-left-10 bottom-8 sm:bottom-12 md:bottom-16 -rotate-[6deg]">
-            <p className="text-white/80 text-sm sm:text-xl md:text-2xl" style={{ fontFamily: "'Gochi Hand', cursive" }}>
-              He builds cool stuff
-            </p>
-          </div>
-
-          <div className="absolute left-[28%] sm:left-[32%] md:left-[36%] bottom-[-50px] sm:bottom-[-30px] md:bottom-[-20px] rotate-[-4deg]">
-            <p className="text-white/80 text-sm sm:text-xl md:text-2xl" style={{ fontFamily: "'Gochi Hand', cursive" }}>
-              Reading Tech Blogs
-            </p>
-          </div>
+          <CircularText
+            items={["Sahil Nayak", "Trekking", "Chess", "Travelling", "He builds cool stuff", "Reading Tech Blogs"]}
+            anchorRef={profileRef}
+            offset={18}
+          />
         </motion.div>
       </div>
 

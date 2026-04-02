@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,8 @@ export const LayoutTextFlip = ({
     duration?: number;
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const measurerRef = useRef<HTMLDivElement | null>(null);
+    const [maxWidth, setMaxWidth] = useState<number | null>(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -21,6 +23,27 @@ export const LayoutTextFlip = ({
 
         return () => clearInterval(interval);
     }, [duration, words.length]);
+
+    // measure widest word to avoid layout shifts
+    useEffect(() => {
+        const measure = () => {
+            const el = measurerRef.current;
+            if (!el) return setMaxWidth(null);
+            const children = Array.from(el.children) as HTMLElement[];
+            let max = 0;
+            children.forEach((c) => {
+                const w = c.getBoundingClientRect().width;
+                if (w > max) max = w;
+            });
+            // add padding for the container's horizontal padding (px-3 sm:px-4)
+            const padding = 24; // px
+            setMaxWidth(Math.ceil(max + padding));
+        };
+
+        measure();
+        window.addEventListener("resize", measure);
+        return () => window.removeEventListener("resize", measure);
+    }, [words]);
 
     return (
         <>
@@ -39,11 +62,18 @@ export const LayoutTextFlip = ({
             </motion.span>
 
             {/* Animated word container */}
+            {/* Hidden measurer (offscreen) used to compute widest word */}
+            <div ref={measurerRef} aria-hidden className="absolute -left-[9999px] top-0 pointer-events-none opacity-0">
+                {words.map((w, idx) => (
+                    <span key={idx} className="inline-block whitespace-nowrap text-lg sm:text-xl md:text-3xl font-bold px-0">
+                        {w}
+                    </span>
+                ))}
+            </div>
             <motion.span
                 layout
                 className="
           relative 
-          w-fit 
           overflow-hidden 
           rounded-md 
           border border-transparent 
@@ -70,6 +100,7 @@ export const LayoutTextFlip = ({
           dark:shadow-white/10 
           dark:ring-white/10
         "
+                style={maxWidth ? { width: `${maxWidth}px` } : undefined}
             >
                 <AnimatePresence mode="popLayout">
                     <motion.span
