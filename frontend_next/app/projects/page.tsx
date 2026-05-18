@@ -1,125 +1,40 @@
-"use client";
+import type { Metadata } from "next";
+import { ProjectsList } from "./projects-list";
 
-import React from "react";
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
-import { NavbarMenuDemo } from "@/components/ui/navbar-menu-demo";
-import { Cover } from "@/components/ui/cover";
+export const metadata: Metadata = {
+  title: "projects",
+  description:
+    "things i've built — from saas tools to open source. real projects, real users, real impact.",
+};
 
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-    IconArrowWaveRightUp,
-    IconBoxAlignRightFilled,
-    IconBoxAlignTopLeft,
-    IconClipboardCopy,
-    IconFileBroken,
-    IconSignature,
-    IconTableColumn,
-} from "@tabler/icons-react";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://mysite-qz44.onrender.com";
 
-export default function ProjectsPage() {
-    return (
-        <main className="relative min-h-screen w-full px-4 sm:px-6 pt-0 pb-10">
-
-            {/* ===== BACKGROUND ===== */}
-            <div className="fixed inset-0 z-0">
-                <BackgroundRippleEffect />
-            </div>
-
-            {/* ===== NAVBAR ===== */}
-            <div className="sticky top-0 z-30">
-                <NavbarMenuDemo />
-            </div>
-
-            {/* ===== PAGE CONTENT ===== */}
-            <div className="relative z-10 max-w-6xl mx-auto mt-16 text-center">
-
-                {/* Heading */}
-                <h1
-                    className="
-            text-4xl md:text-5xl lg:text-6xl 
-            font-semibold
-            bg-clip-text text-transparent
-            bg-gradient-to-b from-white via-neutral-300 to-neutral-500
-          "
-                >
-                    I have built some cool <Cover>Projects</Cover>
-                </h1>
-
-                <p className="text-neutral-400 mt-4 text-sm sm:text-base max-w-2xl mx-auto">
-                   Not Added Projects (My DB terminated because of free tier) will add soon.
-                    Thanks for your time 
-                </p>
-
-                {/* ========= OFFICIAL BENTO GRID ========= */}
-                <div className="mt-14">
-                    <BentoGrid className="max-w-4xl mx-auto">
-                        {items.map((item, i) => (
-                            <BentoGridItem
-                                key={i}
-                                title={item.title}
-                                description={item.description}
-                                header={item.header}
-                                icon={item.icon}
-                                className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-                            />
-                        ))}
-                    </BentoGrid>
-                </div>
-
-            </div>
-        </main>
-    );
+async function getProjects() {
+  try {
+    const res = await fetch(`${API_URL}/projects/`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 }
 
-/* =================== EXACT OFFICIAL GRID DATA =================== */
+export default async function ProjectsPage() {
+  const projects = await getProjects();
 
-const Skeleton = () => (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl 
-  bg-gradient-to-br from-neutral-200 dark:from-neutral-900 
-  dark:to-neutral-800 to-neutral-100" />
-);
+  return (
+    <div className="pt-24 pb-20 max-w-6xl mx-auto px-6">
+      <div className="mb-16">
+        <h1 className="text-4xl md:text-5xl font-normal mb-4">projects</h1>
+        <p className="text-white/40 max-w-lg">
+          stuff i&apos;ve actually built and shipped. not tutorials, not todo apps —
+          real things that solve real problems.
+        </p>
+      </div>
 
-const items = [
-    {
-        title: "The Dawn of Innovation",
-        description: "Explore the birth of groundbreaking ideas and inventions.",
-        header: <Skeleton />,
-        icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-        title: "The Digital Revolution",
-        description: "Dive into the transformative power of technology.",
-        header: <Skeleton />,
-        icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-        title: "The Art of Design",
-        description: "Discover the beauty of thoughtful and functional design.",
-        header: <Skeleton />,
-        icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-        title: "The Power of Communication",
-        description: "Understand the impact of effective communication in our lives.",
-        header: <Skeleton />,
-        icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-        title: "The Pursuit of Knowledge",
-        description: "Join the quest for understanding and enlightenment.",
-        header: <Skeleton />,
-        icon: <IconArrowWaveRightUp className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-        title: "The Joy of Creation",
-        description: "Experience the thrill of bringing ideas to life.",
-        header: <Skeleton />,
-        icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-        title: "The Spirit of Adventure",
-        description: "Embark on exciting journeys and thrilling discoveries.",
-        header: <Skeleton />,
-        icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
-    },
-];
+      <ProjectsList projects={projects} />
+    </div>
+  );
+}
