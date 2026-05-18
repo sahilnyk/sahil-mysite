@@ -1,49 +1,104 @@
-/* Google Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
-
 @import "tailwindcss";
 
-/* ---------- Global Theme Colors ---------- */
 :root {
   --background: #000000;
   --foreground: #ffffff;
+  --accent: #888888;
+  --border: #1a1a1a;
 }
 
-/* ---------- Ripple Animation Theme ---------- */
 @theme inline {
-  --animate-cell-ripple: cell-ripple var(--duration, 200ms) ease-out none 1 var(--delay, 0ms);
+  --font-serif: "Times New Roman", Times, serif;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-up: slide-up 0.5s ease-out forwards;
 
-  @keyframes cell-ripple {
-    0% {
-      opacity: 0.4;
-    }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
-    50% {
-      opacity: 0.8;
-    }
-
-    100% {
-      opacity: 0.4;
-    }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
-/* ---------- Body Defaults ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+  font-family: "Times New Roman", Times, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Handwritten font utility */
-.goichi-hand {
-  font-family: "Gochi Hand", cursive;
+::selection {
+  background: #333;
+  color: #fff;
 }
 
-/* ---------- FORCE DEFAULT CURSOR ---------- */
-/* In case any previous custom cursor CSS was applied */
-html,
-body,
-* {
-  cursor: auto !important;
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Perspective grid like poolside */
+.perspective-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  perspective: 600px;
+  overflow: hidden;
+}
+
+.perspective-grid::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  transform: rotateX(60deg);
+  transform-origin: center center;
+}
+
+/* Watermark text style like microstudio */
+.watermark-text {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.04);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Link hover */
+a {
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
 }
