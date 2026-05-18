@@ -3,12 +3,8 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
+import { LogoCarousel } from "@/components/logo-carousel";
 
-const techStack = [
-  "python", "django", "react", "next.js", "typescript",
-  "postgresql", "redis", "docker", "aws", "tailwind css",
-  "node.js", "rest apis", "git", "linux",
-];
 
 const jobs = [
   {
@@ -255,7 +251,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* tech stack */}
+      {/* tech stack carousel */}
       <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-4xl">
           <h2
@@ -264,27 +260,7 @@ export default function Home() {
           >
             tech stack
           </h2>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap gap-3"
-          >
-            {techStack.map((tech, i) => (
-              <motion.span
-                key={tech}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.03 }}
-                className="border border-white/8 px-5 py-3 text-[15px] text-white/40 hover:text-white/80 hover:border-white/20 transition-all duration-200"
-                style={{ fontFamily: '"Source Code Pro", monospace' }}
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </motion.div>
+          <LogoCarousel columnCount={5} />
         </div>
       </section>
 
