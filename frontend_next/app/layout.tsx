@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { CustomCursor } from "@/components/custom-cursor";
 
 export const metadata: Metadata = {
   title: {
@@ -62,7 +63,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen w-full bg-black text-white grid-bg">
+      <body className="min-h-screen w-full bg-black text-white grid-bg cursor-none md:cursor-none">
+        {/* Custom Cursor */}
+        <CustomCursor />
+
         {/* Perspective grid overlay */}
         <div className="perspective-grid" />
 
