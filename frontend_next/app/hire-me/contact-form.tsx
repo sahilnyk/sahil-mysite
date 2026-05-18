@@ -42,7 +42,7 @@ export function ContactForm() {
           required
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="w-full bg-transparent border border-white/10 px-4 py-3 text-white text-sm focus:border-white/30 focus:outline-none transition-colors"
+          className="w-full bg-transparent border border-white/10 px-4 py-3 text-white text-base focus:border-white/30 focus:outline-none transition-colors"
           placeholder="your name"
         />
       </div>
@@ -57,7 +57,7 @@ export function ContactForm() {
           required
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="w-full bg-transparent border border-white/10 px-4 py-3 text-white text-sm focus:border-white/30 focus:outline-none transition-colors"
+          className="w-full bg-transparent border border-white/10 px-4 py-3 text-white text-base focus:border-white/30 focus:outline-none transition-colors"
           placeholder="you@company.com"
         />
       </div>
@@ -69,10 +69,10 @@ export function ContactForm() {
         <textarea
           id="message"
           required
-          rows={6}
+          rows={5}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          className="w-full bg-transparent border border-white/10 px-4 py-3 text-white text-sm focus:border-white/30 focus:outline-none transition-colors resize-none"
+          className="w-full bg-transparent border border-white/10 px-4 py-3 text-white text-base focus:border-white/30 focus:outline-none transition-colors resize-none"
           placeholder="tell me about your project..."
         />
       </div>
@@ -80,13 +80,14 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full border border-white/20 py-3 text-sm hover:bg-white hover:text-black transition-all disabled:opacity-50"
+        className="border border-white/20 px-5 py-2 text-sm text-white/70 hover:bg-white hover:text-black transition-all disabled:opacity-50"
+        style={{ fontFamily: '"Source Code Pro", monospace' }}
       >
         {status === "sending"
           ? "sending..."
           : status === "sent"
-            ? "sent! i'll get back to you ✓"
-            : "send message"}
+            ? "sent! i'll get back to you"
+            : "send"}
       </button>
 
       {status === "error" && (
