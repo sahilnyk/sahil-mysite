@@ -41,7 +41,6 @@ export function CustomCursor() {
       className="fixed top-0 left-0 pointer-events-none z-[9999] hidden md:block"
       style={{ transform: "translate(-2px, -2px)" }}
     >
-      {/* Linux X11 arrow cursor shape */}
       <svg
         width={isHover ? "28" : "20"}
         height={isHover ? "28" : "20"}
@@ -50,11 +49,10 @@ export function CustomCursor() {
         xmlns="http://www.w3.org/2000/svg"
         className="transition-all duration-150"
       >
-        {/* Arrow body */}
         <path
           d="M1 1L1 14L4.5 10.5L7 15L9 14L6.5 9.5L11 9.5L1 1Z"
-          fill={isHover ? "#ffffff" : "#e5e5e5"}
-          stroke="#000000"
+          fill={isHover ? "#60a5fa" : "#3b82f6"}
+          stroke="#1e3a5f"
           strokeWidth="0.8"
           strokeLinejoin="round"
         />

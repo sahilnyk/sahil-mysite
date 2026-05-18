@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 
 const techStack = [
@@ -33,8 +33,31 @@ const timeline = [
   },
   {
     year: "2025",
-    title: "internships & building 0 → 1",
+    title: "internships & building 0 to 1",
     desc: "ml intern + sde intern. built products from scratch, shipped to real users. building > theorizing.",
+  },
+];
+
+const faqs = [
+  {
+    q: "what tech do you work with?",
+    a: "primarily python/django on the backend, react/next.js on the frontend. i also do devops with docker and aws. basically whatever gets the job done.",
+  },
+  {
+    q: "are you available for freelance?",
+    a: "yes. i take on freelance projects, contract roles, and i'm open to full-time positions too. hit me up on the hire me page.",
+  },
+  {
+    q: "how fast can you ship?",
+    a: "depends on scope obviously, but i'm known for moving fast. mvps in 1-2 weeks, production features in days. i don't do meeting-heavy workflows.",
+  },
+  {
+    q: "do you do design too?",
+    a: "i have a strong design sense and can build polished UIs, but i'm not a full-time designer. i work best when there's a design system or figma to reference.",
+  },
+  {
+    q: "what's your work style?",
+    a: "async-first, ship-fast, communicate clearly. i'll send you progress updates without you having to ask. no ghosting, no bs.",
   },
 ];
 
@@ -44,40 +67,81 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
     target: ref,
     offset: ["start end", "center center"],
   });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.2, 1]);
-  const x = useTransform(scrollYProgress, [0, 1], [-30, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.15, 1]);
+  const x = useTransform(scrollYProgress, [0, 1], [-40, 0]);
 
   return (
     <motion.div
       ref={ref}
       style={{ opacity, x }}
-      className="relative grid grid-cols-[50px_1fr] md:grid-cols-[80px_1fr] gap-4 md:gap-8 pb-14 last:pb-0"
+      className="relative grid grid-cols-[50px_1fr] md:grid-cols-[80px_1fr] gap-4 md:gap-8 pb-16 last:pb-0"
     >
-      {/* dot + line */}
       <div className="flex flex-col items-center">
         <motion.div
-          className="w-3 h-3 rounded-full bg-white/80 border-2 border-white/40"
+          className="w-3 h-3 rounded-full bg-blue-400/80 border-2 border-blue-400/40"
           style={{ animation: "timeline-dot 1.5s ease-in-out infinite" }}
-          transition={{ delay: index * 0.2 }}
         />
         {index < timeline.length - 1 && (
           <div className="w-[1px] flex-1 mt-2 timeline-line" />
         )}
       </div>
 
-      {/* content */}
       <div className="pb-2">
         <span
-          className="text-[12px] text-white/25 tracking-wider"
+          className="text-[13px] text-white/25 tracking-wider"
           style={{ fontFamily: '"Source Code Pro", monospace' }}
         >
           {item.year}
         </span>
-        <h3 className="text-white/90 text-lg mt-1 mb-2">{item.title}</h3>
-        <p className="text-white/35 text-base leading-relaxed">{item.desc}</p>
+        <h3 className="text-white/90 text-xl mt-2 mb-2" style={{ fontFamily: '"Inria Serif", serif' }}>
+          {item.title}
+        </h3>
+        <p className="text-white/40 text-base leading-relaxed">{item.desc}</p>
       </div>
     </motion.div>
   );
+}
+
+function FaqItem({ item }: { item: typeof faqs[0] }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-white/5">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full text-left py-6 flex items-center justify-between gap-4"
+      >
+        <span className="text-white/80 text-lg" style={{ fontFamily: '"Inria Serif", serif' }}>
+          {item.q}
+        </span>
+        <motion.span
+          animate={{ rotate: open ? 45 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-white/30 text-2xl shrink-0"
+        >
+          +
+        </motion.span>
+      </button>
+      <AnimatePresenceWrapper open={open}>
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="overflow-hidden"
+        >
+          <p className="text-white/35 text-base pb-6 leading-relaxed pl-0">
+            {item.a}
+          </p>
+        </motion.div>
+      </AnimatePresenceWrapper>
+    </div>
+  );
+}
+
+function AnimatePresenceWrapper({ open, children }: { open: boolean; children: React.ReactNode }) {
+  const { AnimatePresence } = require("motion/react");
+  return <AnimatePresence>{open && children}</AnimatePresence>;
 }
 
 export default function Home() {
@@ -92,31 +156,34 @@ export default function Home() {
           className="max-w-3xl"
         >
           <p
-            className="text-[13px] text-white/30 tracking-wide mb-6"
+            className="text-[14px] text-white/30 tracking-wide mb-6"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
           >
             software engineer
           </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-normal leading-[1.2] tracking-tight">
+          <h1
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.15] tracking-tight"
+            style={{ fontFamily: '"Inria Serif", "Times New Roman", serif' }}
+          >
             i build products.
             <br />
             <span className="text-white/40">you get results.</span>
           </h1>
-          <p className="text-white/35 text-lg md:text-xl mt-8 max-w-lg leading-relaxed">
+          <p className="text-white/40 text-lg md:text-xl mt-10 max-w-xl leading-relaxed">
             full-stack engineer building scalable web applications
-            and saas products — starting with real problems, ending with real impact.
+            and saas products. starting with real problems, ending with real impact.
           </p>
           <div className="flex gap-4 mt-10">
             <Link
               href="/projects"
-              className="text-[13px] tracking-wide border border-white/15 px-6 py-3 text-white/70 hover:bg-white hover:text-black transition-all duration-300"
+              className="text-[14px] tracking-wide border border-white/15 px-6 py-3 text-white/70 hover:bg-white hover:text-black transition-all duration-300"
               style={{ fontFamily: '"Source Code Pro", monospace' }}
             >
               view work
             </Link>
             <Link
               href="/hire-me"
-              className="text-[13px] tracking-wide bg-white text-black px-6 py-3 hover:bg-white/90 transition-all duration-300"
+              className="text-[14px] tracking-wide bg-white text-black px-6 py-3 hover:bg-white/90 transition-all duration-300"
               style={{ fontFamily: '"Source Code Pro", monospace' }}
             >
               hire me
@@ -125,9 +192,30 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* typography section */}
+      <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-24">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-5xl"
+        >
+          <p
+            className="text-4xl md:text-5xl lg:text-6xl text-white/80 leading-[1.3] font-light"
+            style={{ fontFamily: '"Cardo", "Times New Roman", serif' }}
+          >
+            i believe great software is built at the intersection of
+            <span className="italic text-white/50"> clean code</span>,
+            <span className="italic text-white/50"> thoughtful design</span>, and
+            <span className="italic text-white/50"> relentless shipping</span>.
+          </p>
+        </motion.div>
+      </section>
+
       {/* about */}
       <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-24">
-        <div className="max-w-4xl grid md:grid-cols-[200px_1fr] gap-10 md:gap-16 items-start">
+        <div className="max-w-4xl grid md:grid-cols-[220px_1fr] gap-10 md:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -148,13 +236,13 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-5"
           >
-            <p className="text-white/70 text-xl leading-relaxed">
-              hey, i&apos;m sahil — wrote my first line of code at 17 and immediately knew
+            <p className="text-white/75 text-xl leading-relaxed" style={{ fontFamily: '"Inria Serif", serif' }}>
+              hey, i&apos;m sahil. wrote my first line of code at 17 and immediately knew
               this was it. been shipping ever since.
             </p>
-            <p className="text-white/35 text-base leading-relaxed">
+            <p className="text-white/40 text-base leading-relaxed">
               currently obsessed with building scalable saas, designing clean apis,
-              and solving problems that actually matter. i don&apos;t do tutorial projects —
+              and solving problems that actually matter. i don&apos;t do tutorial projects.
               everything i build has real users or solves a real pain point. if it doesn&apos;t
               ship, it doesn&apos;t count.
             </p>
@@ -166,7 +254,7 @@ export default function Home() {
       <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-4xl">
           <h2
-            className="text-[12px] tracking-wide text-white/25 mb-10"
+            className="text-[13px] tracking-wide text-white/25 mb-10"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
           >
             tech stack
@@ -185,7 +273,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
-                className="border border-white/8 px-4 py-2.5 text-sm text-white/40 hover:text-white/80 hover:border-white/20 transition-all duration-200"
+                className="border border-white/8 px-5 py-3 text-[15px] text-white/40 hover:text-white/80 hover:border-white/20 transition-all duration-200"
                 style={{ fontFamily: '"Source Code Pro", monospace' }}
               >
                 {tech}
@@ -199,7 +287,7 @@ export default function Home() {
       <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-4xl">
           <h2
-            className="text-[12px] tracking-wide text-white/25 mb-14"
+            className="text-[13px] tracking-wide text-white/25 mb-14"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
           >
             the journey
@@ -212,17 +300,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* video section */}
+      {/* video section with rough grey texture */}
       <section className="border-t border-white/5">
         <div className="beam-bg noise px-6 md:px-16 lg:px-24 py-24">
           <div className="relative z-10 max-w-4xl">
             <h2
-              className="text-[12px] tracking-wide text-white/25 mb-8"
+              className="text-[13px] tracking-wide text-white/25 mb-8"
               style={{ fontFamily: '"Source Code Pro", monospace' }}
             >
               a quick intro
             </h2>
-            <div className="aspect-video w-full max-w-2xl border border-white/8 overflow-hidden shadow-[0_0_60px_rgba(255,255,255,0.02)]">
+            <div className="aspect-video w-full max-w-2xl border border-white/8 overflow-hidden shadow-[0_0_80px_rgba(255,255,255,0.03)]">
               <iframe
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                 title="intro video"
@@ -232,7 +320,7 @@ export default function Home() {
               />
             </div>
             <p
-              className="text-white/15 text-[12px] mt-5 italic"
+              className="text-white/20 text-[13px] mt-5 italic"
               style={{ fontFamily: '"Source Code Pro", monospace' }}
             >
               * real intro coming soon. enjoy this certified banger in the meantime.
@@ -241,24 +329,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* faqs */}
+      <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-20">
+        <div className="max-w-3xl">
+          <h2
+            className="text-[13px] tracking-wide text-white/25 mb-12"
+            style={{ fontFamily: '"Source Code Pro", monospace' }}
+          >
+            frequently asked
+          </h2>
+          <div>
+            {faqs.map((faq) => (
+              <FaqItem key={faq.q} item={faq} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* cta */}
       <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-24">
         <div className="max-w-2xl">
-          <h2 className="text-3xl md:text-4xl font-normal leading-[1.4]">
+          <h2 className="text-3xl md:text-4xl font-normal leading-[1.4]" style={{ fontFamily: '"Inria Serif", serif' }}>
             <span className="text-white/90">the next commit.</span>{" "}
-            <span className="text-white/35">
-              where ideas become products — and products become impact.
+            <span className="text-white/40">
+              where ideas become products and products become impact.
             </span>
           </h2>
           <p
-            className="text-white/25 text-base mt-6 leading-relaxed"
+            className="text-white/30 text-base mt-6 leading-relaxed"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
           >
             got a project? need a dev who actually ships? let&apos;s build something.
           </p>
           <Link
             href="/hire-me"
-            className="inline-block mt-8 text-[13px] tracking-wide border border-white/15 px-6 py-3 text-white/60 hover:bg-white hover:text-black transition-all duration-300"
+            className="inline-block mt-8 text-[14px] tracking-wide border border-white/15 px-6 py-3 text-white/60 hover:bg-white hover:text-black transition-all duration-300"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
           >
             get in touch

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   IconHome,
   IconArticle,
@@ -19,6 +20,42 @@ const links = [
   { href: "/hire-me", label: "hire me", icon: IconMail },
 ];
 
+function NavLink({ href, label, icon: Icon, isActive }: {
+  href: string;
+  label: string;
+  icon: typeof IconHome;
+  isActive: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <Link
+      href={href}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`flex items-center gap-3 text-[15px] transition-colors ${
+        isActive ? "text-white" : "text-white/35 hover:text-white/70"
+      }`}
+      style={{ fontFamily: '"Source Code Pro", monospace' }}
+    >
+      <AnimatePresence>
+        {(hovered || isActive) && (
+          <motion.span
+            initial={{ opacity: 0, scale: 0, width: 0 }}
+            animate={{ opacity: 1, scale: 1, width: "auto" }}
+            exit={{ opacity: 0, scale: 0, width: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="inline-flex"
+          >
+            <Icon size={16} strokeWidth={1.5} />
+          </motion.span>
+        )}
+      </AnimatePresence>
+      {label}
+    </Link>
+  );
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -27,38 +64,26 @@ export function Navbar() {
     <>
       {/* desktop sidebar */}
       <aside className="fixed left-0 top-0 h-screen w-[220px] z-50 hidden md:flex flex-col py-10 px-8">
-        {/* brand */}
         <Link
           href="/"
           className="text-xl italic font-normal text-white/90 hover:text-white transition-colors mb-14"
-          style={{ fontFamily: '"Times New Roman", serif' }}
+          style={{ fontFamily: '"Inria Serif", "Times New Roman", serif' }}
         >
           sahilnyk
         </Link>
 
-        {/* nav links */}
-        <nav className="flex flex-col gap-5">
-          {links.map((link) => {
-            const Icon = link.icon;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-3 text-[14px] transition-colors ${
-                  pathname === link.href
-                    ? "text-white"
-                    : "text-white/35 hover:text-white/70"
-                }`}
-                style={{ fontFamily: '"Source Code Pro", monospace' }}
-              >
-                <Icon size={16} strokeWidth={1.5} />
-                {link.label}
-              </Link>
-            );
-          })}
+        <nav className="flex flex-col gap-6">
+          {links.map((link) => (
+            <NavLink
+              key={link.href}
+              href={link.href}
+              label={link.label}
+              icon={link.icon}
+              isActive={pathname === link.href}
+            />
+          ))}
         </nav>
 
-        {/* bottom */}
         <div className="mt-auto">
           <p
             className="text-[11px] text-white/15"
@@ -75,7 +100,7 @@ export function Navbar() {
           <Link
             href="/"
             className="text-lg italic text-white/90"
-            style={{ fontFamily: '"Times New Roman", serif' }}
+            style={{ fontFamily: '"Inria Serif", "Times New Roman", serif' }}
           >
             sahilnyk
           </Link>
@@ -107,7 +132,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 text-sm ${
+                  className={`flex items-center gap-3 text-base ${
                     pathname === link.href ? "text-white" : "text-white/40"
                   }`}
                   style={{ fontFamily: '"Source Code Pro", monospace' }}
