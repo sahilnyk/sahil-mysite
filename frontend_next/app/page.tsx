@@ -299,31 +299,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* video section with rough grey texture */}
-      <section className="border-t border-white/5">
-        <div className="beam-bg noise px-6 md:px-16 lg:px-24 py-24">
-          <div className="relative z-10 max-w-4xl">
-            <h2
-              className="text-[13px] tracking-wide text-white/25 mb-8"
-              style={{ fontFamily: '"Source Code Pro", monospace' }}
-            >
-              a quick intro
-            </h2>
-            <div className="aspect-video w-full max-w-2xl border border-white/8 overflow-hidden shadow-[0_0_80px_rgba(255,255,255,0.03)]">
-              <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="intro video"
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+      {/* video section */}
+      <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-24">
+        <div className="max-w-4xl">
+          <h2
+            className="text-[13px] tracking-wide text-white/25 mb-8"
+            style={{ fontFamily: '"Source Code Pro", monospace' }}
+          >
+            a quick intro
+          </h2>
+          <div className="aspect-video w-full max-w-2xl border border-white/8 overflow-hidden">
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="intro video"
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+          <p
+            className="text-white/20 text-[13px] mt-5 italic"
+            style={{ fontFamily: '"Source Code Pro", monospace' }}
+          >
+            * real intro coming soon. enjoy this certified banger in the meantime.
+          </p>
+        </div>
+      </section>
+
+      {/* grid cards like poolside */}
+      <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-20">
+        <div className="max-w-5xl">
+          <h2
+            className="text-[13px] tracking-wide text-white/25 mb-12"
+            style={{ fontFamily: '"Source Code Pro", monospace' }}
+          >
+            what i bring to the table
+          </h2>
+          <div className="grid md:grid-cols-2 border border-white/8">
+            {/* card 1 */}
+            <div className="border-b md:border-b md:border-r border-white/8 p-8 md:p-12">
+              <h3 className="text-2xl text-white/85 mb-4" style={{ fontFamily: '"Inria Serif", serif' }}>
+                full-stack development
+              </h3>
+              <p className="text-white/35 text-base leading-relaxed">
+                end-to-end product engineering. from database schema to pixel-perfect
+                frontend. django, react, next.js, postgres, redis, the works.
+              </p>
             </div>
-            <p
-              className="text-white/20 text-[13px] mt-5 italic"
-              style={{ fontFamily: '"Source Code Pro", monospace' }}
-            >
-              * real intro coming soon. enjoy this certified banger in the meantime.
-            </p>
+            {/* card 2 with wireframe */}
+            <div className="border-b border-white/8 p-8 md:p-12 flex items-center justify-center">
+              <svg viewBox="0 0 200 200" className="w-32 h-32 opacity-30" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="0.5">
+                <ellipse cx="100" cy="100" rx="80" ry="40" />
+                <ellipse cx="100" cy="100" rx="80" ry="40" transform="rotate(60 100 100)" />
+                <ellipse cx="100" cy="100" rx="80" ry="40" transform="rotate(120 100 100)" />
+                <polygon points="100,40 140,120 60,120" />
+                <circle cx="100" cy="40" r="4" fill="rgba(255,255,255,0.4)" />
+                <circle cx="140" cy="120" r="4" fill="rgba(255,255,255,0.4)" />
+                <circle cx="60" cy="120" r="4" fill="rgba(255,255,255,0.4)" />
+              </svg>
+            </div>
+            {/* card 3 with wireframe */}
+            <div className="border-b md:border-b-0 md:border-r border-white/8 p-8 md:p-12 flex items-center justify-center">
+              <svg viewBox="0 0 200 200" className="w-32 h-32 opacity-30" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="0.5">
+                <rect x="40" y="40" width="120" height="120" />
+                <rect x="60" y="60" width="80" height="80" />
+                <line x1="40" y1="40" x2="60" y2="60" />
+                <line x1="160" y1="40" x2="140" y2="60" />
+                <line x1="40" y1="160" x2="60" y2="140" />
+                <line x1="160" y1="160" x2="140" y2="140" />
+                <circle cx="100" cy="100" r="20" />
+              </svg>
+            </div>
+            {/* card 4 */}
+            <div className="p-8 md:p-12">
+              <h3 className="text-2xl text-white/85 mb-4" style={{ fontFamily: '"Inria Serif", serif' }}>
+                scalable architecture
+              </h3>
+              <p className="text-white/35 text-base leading-relaxed">
+                systems designed to grow. clean apis, proper caching, containerized
+                deployments. built for thousands of users from day one.
+              </p>
+            </div>
           </div>
         </div>
       </section>
