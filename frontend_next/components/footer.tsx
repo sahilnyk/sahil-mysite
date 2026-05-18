@@ -1,12 +1,15 @@
+"use client";
+
+import { motion } from "motion/react";
 import Link from "next/link";
 
 export function Footer() {
   return (
     <footer className="border-t border-white/5 mt-0">
-      {/* CTA rows like poolside */}
-      <div className="px-6 md:px-16 lg:px-24 py-16 space-y-0">
-        <div className="border-b border-white/5 pb-6 mb-6">
-          <p className="text-xl md:text-2xl text-white/80 mb-3">
+      {/* CTA rows */}
+      <div className="px-6 md:px-16 lg:px-24 py-20 space-y-0">
+        <div className="border-b border-white/5 pb-8 mb-8">
+          <p className="text-2xl md:text-3xl text-white/80 mb-4">
             Need a dev who actually ships?
           </p>
           <div className="flex justify-end">
@@ -19,8 +22,8 @@ export function Footer() {
             </Link>
           </div>
         </div>
-        <div className="border-b border-white/5 pb-6">
-          <p className="text-xl md:text-2xl text-white/80 mb-3">
+        <div className="border-b border-white/5 pb-8">
+          <p className="text-2xl md:text-3xl text-white/80 mb-4">
             Check out what I&apos;ve been building.
           </p>
           <div className="flex justify-end">
@@ -35,10 +38,9 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Footer links + giant text */}
-      <div className="px-6 md:px-16 lg:px-24 pb-8">
-        {/* Links row */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-16">
+      {/* Footer links */}
+      <div className="px-6 md:px-16 lg:px-24 pb-6">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20">
           <nav
             className="flex flex-col gap-3 text-[11px] tracking-[0.15em] uppercase text-white/30"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
@@ -64,25 +66,44 @@ export function Footer() {
             </Link>
           </div>
         </div>
+      </div>
 
-        {/* Giant striped/outlined text */}
-        <div className="overflow-hidden select-none pointer-events-none">
-          <svg
-            viewBox="0 0 900 120"
+      {/* Giant animated sahilnyk.xyz */}
+      <div className="overflow-hidden select-none pointer-events-none px-2 pb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.svg
+            viewBox="0 0 1200 200"
             className="w-full h-auto"
             xmlns="http://www.w3.org/2000/svg"
+            animate={{
+              filter: [
+                "drop-shadow(0 0 0px rgba(255,255,255,0))",
+                "drop-shadow(0 0 8px rgba(255,255,255,0.08))",
+                "drop-shadow(0 0 0px rgba(255,255,255,0))",
+              ],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
             <defs>
-              <pattern id="footer-lines" patternUnits="userSpaceOnUse" width="900" height="4">
-                <line x1="0" y1="0" x2="900" y2="0" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-                <line x1="0" y1="2" x2="900" y2="2" stroke="transparent" strokeWidth="1" />
+              <pattern id="ft-lines" patternUnits="userSpaceOnUse" width="1200" height="3.5">
+                <line x1="0" y1="0" x2="1200" y2="0" stroke="rgba(255,255,255,0.15)" strokeWidth="1.2" />
+                <line x1="0" y1="1.75" x2="1200" y2="1.75" stroke="transparent" strokeWidth="1" />
               </pattern>
-              <clipPath id="footer-text-clip">
+              <clipPath id="ft-clip">
                 <text
                   x="50%"
-                  y="95"
+                  y="160"
                   textAnchor="middle"
-                  fontSize="130"
+                  fontSize="190"
                   fontFamily="'Times New Roman', Times, serif"
                   fontStyle="italic"
                   fontWeight="400"
@@ -92,21 +113,13 @@ export function Footer() {
               </clipPath>
             </defs>
             <rect
-              width="900"
-              height="120"
-              fill="url(#footer-lines)"
-              clipPath="url(#footer-text-clip)"
+              width="1200"
+              height="200"
+              fill="url(#ft-lines)"
+              clipPath="url(#ft-clip)"
             />
-          </svg>
-        </div>
-
-        {/* Copyright */}
-        <p
-          className="text-[9px] text-white/10 tracking-wider mt-6 text-center"
-          style={{ fontFamily: '"Source Code Pro", monospace' }}
-        >
-          &copy; 2025 sahilnyk
-        </p>
+          </motion.svg>
+        </motion.div>
       </div>
     </footer>
   );
