@@ -67,36 +67,35 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
     target: ref,
     offset: ["start end", "center center"],
   });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.15, 1]);
-  const x = useTransform(scrollYProgress, [0, 1], [-40, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.1, 1]);
 
   return (
     <motion.div
       ref={ref}
-      style={{ opacity, x }}
-      className="relative grid grid-cols-[50px_1fr] md:grid-cols-[80px_1fr] gap-4 md:gap-8 pb-16 last:pb-0"
+      style={{ scale, opacity }}
+      className="relative flex gap-6 md:gap-10 pb-0"
     >
-      <div className="flex flex-col items-center">
-        <motion.div
-          className="w-3 h-3 rounded-full bg-blue-400/80 border-2 border-blue-400/40"
-          style={{ animation: "timeline-dot 1.5s ease-in-out infinite" }}
-        />
-        {index < timeline.length - 1 && (
-          <div className="w-[1px] flex-1 mt-2 timeline-line" />
-        )}
-      </div>
-
-      <div className="pb-2">
+      {/* left column: year + line */}
+      <div className="flex flex-col items-center pt-1 shrink-0 w-[60px] md:w-[80px]">
         <span
-          className="text-[13px] text-white/25 tracking-wider"
+          className="text-[14px] text-white/50 font-medium"
           style={{ fontFamily: '"Source Code Pro", monospace' }}
         >
           {item.year}
         </span>
-        <h3 className="text-white/90 text-xl mt-2 mb-2" style={{ fontFamily: '"Inria Serif", serif' }}>
-          {item.title}
-        </h3>
-        <p className="text-white/40 text-base leading-relaxed">{item.desc}</p>
+        <div className="w-[1px] flex-1 mt-3 bg-gradient-to-b from-blue-400/30 to-transparent" />
+      </div>
+
+      {/* right column: card */}
+      <div className="flex-1 border border-white/6 p-6 md:p-8 mb-5 hover:border-white/15 transition-all duration-300 group">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-2 h-2 rounded-full bg-blue-400/70 group-hover:bg-blue-400 transition-colors" />
+          <h3 className="text-white/90 text-xl" style={{ fontFamily: '"Inria Serif", serif' }}>
+            {item.title}
+          </h3>
+        </div>
+        <p className="text-white/40 text-base leading-relaxed pl-5">{item.desc}</p>
       </div>
     </motion.div>
   );
@@ -292,7 +291,7 @@ export default function Home() {
           >
             the journey
           </h2>
-          <div className="pl-2">
+          <div>
             {timeline.map((item, i) => (
               <TimelineItem key={item.year} item={item} index={i} />
             ))}
