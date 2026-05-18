@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'Projects',
     'corsheaders',
     'django_ckeditor_5',
+    'Contact',
 ]
 
 # Middleware
@@ -48,6 +49,13 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://sahilnyk.vercel.app',
 ]
+
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',
+    }
+}
 
 # URL Config
 ROOT_URLCONF = 'psite.urls'
