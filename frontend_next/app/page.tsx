@@ -10,31 +10,27 @@ const techStack = [
   "node.js", "rest apis", "git", "linux",
 ];
 
-const timeline = [
+const jobs = [
   {
-    year: "2021",
-    title: "wrote my first 'hello world'",
-    desc: "got introduced to coding through python. immediately got addicted to the dopamine of seeing code actually do something.",
+    company: "specfor",
+    logo: "https://specfor.com/favicon.ico",
+    role: "software developer intern",
+    period: "jan 2025 - apr 2025",
+    desc: "built internal tools and rest apis. worked on the main product dashboard using react and django.",
   },
   {
-    year: "2022",
-    title: "build season activated",
-    desc: "adopted the 'learn by shipping' philosophy. built multiple projects, broke things, fixed them at 3am.",
+    company: "deepnex",
+    logo: "https://deepnex.com/favicon.ico",
+    role: "machine learning intern",
+    period: "aug 2024 - dec 2024",
+    desc: "developed ml models for data classification. integrated pipelines with the backend infrastructure.",
   },
   {
-    year: "2023",
-    title: "entered cs @ university",
-    desc: "data structures, algorithms, computer architecture. the theoretical foundation that makes everything click.",
-  },
-  {
-    year: "2024",
-    title: "apis, cloud & going full-stack",
-    desc: "designed rest apis, deployed to the cloud, understood distributed systems. actual engineering, not just coding.",
-  },
-  {
-    year: "2025",
-    title: "internships & building 0 to 1",
-    desc: "ml intern + sde intern. built products from scratch, shipped to real users. building > theorizing.",
+    company: "freelance",
+    logo: "",
+    role: "full-stack developer",
+    period: "2023 - present",
+    desc: "building saas products, mvps, and web apps for startups and small businesses. react, next.js, django.",
   },
 ];
 
@@ -61,29 +57,51 @@ const faqs = [
   },
 ];
 
-function TimelineSection() {
+function JobsSection() {
   return (
-    <div className="relative pl-8 md:pl-10">
-      {/* vertical line */}
-      <div className="absolute left-[7px] md:left-[9px] top-2 bottom-0 w-[1px] bg-white/10" />
+    <div className="space-y-8">
+      {jobs.map((job, i) => (
+        <motion.div
+          key={job.company}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: i * 0.1 }}
+          className="flex gap-5 items-start"
+        >
+          {/* logo */}
+          <div className="w-10 h-10 shrink-0 flex items-center justify-center mt-1">
+            {job.logo ? (
+              <img src={job.logo} alt={job.company} className="w-8 h-8 object-contain" />
+            ) : (
+              <span className="text-white/30 text-lg" style={{ fontFamily: '"Inria Serif", serif' }}>
+                ✦
+              </span>
+            )}
+          </div>
 
-      {timeline.map((item, i) => (
-        <div key={item.year} className="relative pb-14 last:pb-0">
-          {/* dot */}
-          <div className="absolute left-[-25px] md:left-[-23px] top-[6px] w-[7px] h-[7px] rounded-full bg-white/50 border border-white/20" />
-
-          {/* content */}
-          <span
-            className="text-[13px] text-white/30 block mb-1"
-            style={{ fontFamily: '"Source Code Pro", monospace' }}
-          >
-            {item.year}
-          </span>
-          <h3 className="text-white/85 text-lg mb-2" style={{ fontFamily: '"Inria Serif", serif' }}>
-            {item.title}
-          </h3>
-          <p className="text-white/35 text-[15px] leading-relaxed max-w-lg">{item.desc}</p>
-        </div>
+          {/* details */}
+          <div className="flex-1">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+              <h3 className="text-white/90 text-lg" style={{ fontFamily: '"Inria Serif", serif' }}>
+                {job.role}
+              </h3>
+              <span
+                className="text-[12px] text-white/25"
+                style={{ fontFamily: '"Source Code Pro", monospace' }}
+              >
+                {job.period}
+              </span>
+            </div>
+            <p
+              className="text-white/45 text-[13px] mb-2"
+              style={{ fontFamily: '"Source Code Pro", monospace' }}
+            >
+              {job.company}
+            </p>
+            <p className="text-white/35 text-[15px] leading-relaxed">{job.desc}</p>
+          </div>
+        </motion.div>
       ))}
     </div>
   );
@@ -270,16 +288,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* timeline */}
+      {/* jobs */}
       <section className="border-t border-white/5 px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-4xl">
           <h2
-            className="text-[13px] tracking-wide text-white/25 mb-14"
+            className="text-[13px] tracking-wide text-white/25 mb-12"
             style={{ fontFamily: '"Source Code Pro", monospace' }}
           >
-            the journey
+            experience
           </h2>
-          <TimelineSection />
+          <JobsSection />
         </div>
       </section>
 
