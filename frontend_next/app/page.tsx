@@ -117,6 +117,36 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Typographic Letter Cards — poolside style */}
+      <section className="max-w-6xl mx-auto px-6 mt-32">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
+            {["S", "A", "H", "I", "L"].map((letter, i) => (
+              <motion.div
+                key={letter + i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="aspect-[3/4] border border-white/10 flex items-center justify-center overflow-hidden group hover:border-white/30 transition-all"
+              >
+                <span className="text-[12vw] md:text-[8vw] font-normal italic text-white/10 group-hover:text-white/25 transition-all duration-500 select-none">
+                  {letter}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+          <p className="text-white/30 mt-6 text-center text-sm">
+            building things that matter, one commit at a time.
+          </p>
+        </motion.div>
+      </section>
+
       {/* Tech Stack */}
       <section className="max-w-6xl mx-auto px-6 mt-32">
         <motion.div
