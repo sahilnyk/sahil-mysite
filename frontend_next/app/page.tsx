@@ -67,35 +67,35 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
     target: ref,
     offset: ["start end", "center center"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0.1, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [20, 0]);
 
   return (
     <motion.div
       ref={ref}
-      style={{ scale, opacity }}
-      className="relative flex gap-6 md:gap-10 pb-0"
+      style={{ opacity, y }}
+      className="relative flex gap-6 md:gap-10 pb-12 last:pb-0"
     >
-      {/* left column: year + line */}
-      <div className="flex flex-col items-center pt-1 shrink-0 w-[60px] md:w-[80px]">
+      {/* left: line + dot */}
+      <div className="flex flex-col items-center pt-2 shrink-0">
+        <div className="w-2.5 h-2.5 rounded-full bg-blue-400/60" />
+        {index < timeline.length - 1 && (
+          <div className="w-[1px] flex-1 mt-2 bg-gradient-to-b from-white/10 to-transparent" />
+        )}
+      </div>
+
+      {/* right: content */}
+      <div className="flex-1 -mt-0.5">
         <span
-          className="text-[14px] text-white/50 font-medium"
+          className="text-[13px] text-white/30"
           style={{ fontFamily: '"Source Code Pro", monospace' }}
         >
           {item.year}
         </span>
-        <div className="w-[1px] flex-1 mt-3 bg-gradient-to-b from-blue-400/30 to-transparent" />
-      </div>
-
-      {/* right column: card */}
-      <div className="flex-1 border border-white/6 p-6 md:p-8 mb-5 hover:border-white/15 transition-all duration-300 group">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-2 h-2 rounded-full bg-blue-400/70 group-hover:bg-blue-400 transition-colors" />
-          <h3 className="text-white/90 text-xl" style={{ fontFamily: '"Inria Serif", serif' }}>
-            {item.title}
-          </h3>
-        </div>
-        <p className="text-white/40 text-base leading-relaxed pl-5">{item.desc}</p>
+        <h3 className="text-white/90 text-xl mt-1 mb-2" style={{ fontFamily: '"Inria Serif", serif' }}>
+          {item.title}
+        </h3>
+        <p className="text-white/40 text-base leading-relaxed">{item.desc}</p>
       </div>
     </motion.div>
   );
