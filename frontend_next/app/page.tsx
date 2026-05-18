@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { motion } from "motion/react";
+import { useState } from "react";
 import Link from "next/link";
 
 const techStack = [
@@ -61,43 +61,31 @@ const faqs = [
   },
 ];
 
-function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"],
-  });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.1, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [20, 0]);
-
+function TimelineSection() {
   return (
-    <motion.div
-      ref={ref}
-      style={{ opacity, y }}
-      className="relative flex gap-6 md:gap-10 pb-12 last:pb-0"
-    >
-      {/* left: line + dot */}
-      <div className="flex flex-col items-center pt-2 shrink-0">
-        <div className="w-2.5 h-2.5 rounded-full bg-blue-400/60" />
-        {index < timeline.length - 1 && (
-          <div className="w-[1px] flex-1 mt-2 bg-gradient-to-b from-white/10 to-transparent" />
-        )}
-      </div>
+    <div className="relative pl-8 md:pl-10">
+      {/* vertical line */}
+      <div className="absolute left-[7px] md:left-[9px] top-2 bottom-0 w-[1px] bg-white/10" />
 
-      {/* right: content */}
-      <div className="flex-1 -mt-0.5">
-        <span
-          className="text-[13px] text-white/30"
-          style={{ fontFamily: '"Source Code Pro", monospace' }}
-        >
-          {item.year}
-        </span>
-        <h3 className="text-white/90 text-xl mt-1 mb-2" style={{ fontFamily: '"Inria Serif", serif' }}>
-          {item.title}
-        </h3>
-        <p className="text-white/40 text-base leading-relaxed">{item.desc}</p>
-      </div>
-    </motion.div>
+      {timeline.map((item, i) => (
+        <div key={item.year} className="relative pb-14 last:pb-0">
+          {/* dot */}
+          <div className="absolute left-[-25px] md:left-[-23px] top-[6px] w-[7px] h-[7px] rounded-full bg-white/50 border border-white/20" />
+
+          {/* content */}
+          <span
+            className="text-[13px] text-white/30 block mb-1"
+            style={{ fontFamily: '"Source Code Pro", monospace' }}
+          >
+            {item.year}
+          </span>
+          <h3 className="text-white/85 text-lg mb-2" style={{ fontFamily: '"Inria Serif", serif' }}>
+            {item.title}
+          </h3>
+          <p className="text-white/35 text-[15px] leading-relaxed max-w-lg">{item.desc}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -291,11 +279,7 @@ export default function Home() {
           >
             the journey
           </h2>
-          <div>
-            {timeline.map((item, i) => (
-              <TimelineItem key={item.year} item={item} index={i} />
-            ))}
-          </div>
+          <TimelineSection />
         </div>
       </section>
 
