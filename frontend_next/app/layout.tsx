@@ -4,6 +4,7 @@ import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CustomCursor } from "@/components/custom-cursor";
+import { PerspectiveGrid } from "@/components/perspective-grid";
 
 export const metadata: Metadata = {
   title: {
@@ -63,28 +64,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen w-full bg-black text-white grid-bg cursor-none md:cursor-none">
+      <body className="min-h-screen w-full bg-[#0a0a0a] text-white">
         {/* Custom Cursor */}
         <CustomCursor />
 
-        {/* Perspective grid overlay */}
-        <div className="perspective-grid" />
+        {/* Perspective Grid Background */}
+        <PerspectiveGrid />
 
-        {/* Watermark */}
-        <div className="fixed inset-0 z-0 flex items-center justify-center overflow-hidden">
-          <span className="watermark-text text-[20vw] whitespace-nowrap">
-            sahilnyk
-          </span>
-        </div>
-
-        {/* Navbar */}
+        {/* Sidebar Nav */}
         <Navbar />
 
-        {/* Page Content */}
-        <main className="relative z-10">{children}</main>
-
-        {/* Footer */}
-        <Footer />
+        {/* Main content — offset by sidebar on desktop */}
+        <div className="md:ml-[200px] relative z-10 min-h-screen">
+          <main className="pt-16 md:pt-0">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
